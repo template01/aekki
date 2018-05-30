@@ -21,7 +21,7 @@
   "_resolved": "https://registry.npmjs.org/strapi-plugin-content-type-builder/-/strapi-plugin-content-type-builder-3.0.0-alpha.12.2.tgz",
   "_shasum": "2a8be776bbebb2156c1ee887f44c8fcaa070f37c",
   "_spec": "strapi-plugin-content-type-builder@alpha",
-  "_where": "/home/lasbian/Testing/ekki",
+  "_where": "/home/lasbian/Testing/teststrapi",
   "author": {
     "name": "Strapi team",
     "email": "hi@strapi.io",

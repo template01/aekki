@@ -1,5 +1,5 @@
 {
-  "name": "ekki",
+  "name": "teststrapi",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application.",
@@ -37,7 +37,7 @@
     }
   ],
   "strapi": {
-    "uuid": "f8ab803d-0f82-4225-b1f4-dc107c79b8a7"
+    "uuid": "f7f9c5f5-aa4f-4cb8-ac68-78e80f5b4000"
   },
   "engines": {
     "node": ">= 9.0.0",

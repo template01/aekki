@@ -21,7 +21,7 @@
   "_resolved": "https://registry.npmjs.org/strapi-plugin-upload/-/strapi-plugin-upload-3.0.0-alpha.12.2.tgz",
   "_shasum": "120895178272e926c8c075e5fc21fd74f1efcf40",
   "_spec": "strapi-plugin-upload@alpha",
-  "_where": "/home/lasbian/Testing/ekki",
+  "_where": "/home/lasbian/Testing/teststrapi",
   "author": {
     "name": "A Strapi developer"
   },

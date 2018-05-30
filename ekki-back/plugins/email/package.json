@@ -21,7 +21,7 @@
   "_resolved": "https://registry.npmjs.org/strapi-plugin-email/-/strapi-plugin-email-3.0.0-alpha.12.2.tgz",
   "_shasum": "aafd68e634ac8022e44b649b44fd2ccdc0d0fd17",
   "_spec": "strapi-plugin-email@alpha",
-  "_where": "/home/lasbian/Testing/ekki",
+  "_where": "/home/lasbian/Testing/teststrapi",
   "author": {
     "name": "Strapi team",
     "email": "hi@strapi.io",

@@ -21,7 +21,7 @@
   "_resolved": "https://registry.npmjs.org/strapi-plugin-settings-manager/-/strapi-plugin-settings-manager-3.0.0-alpha.12.2.tgz",
   "_shasum": "4edc70b563ae71faf8d610758a7bc217de3d54aa",
   "_spec": "strapi-plugin-settings-manager@alpha",
-  "_where": "/home/lasbian/Testing/ekki",
+  "_where": "/home/lasbian/Testing/teststrapi",
   "author": {
     "name": "Strapi team",
     "email": "hi@strapi.io",
