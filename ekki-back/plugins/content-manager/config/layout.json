@@ -1,0 +1,33 @@
+{
+  "productView": {
+    "attributes": {
+      "viewingid": {
+        "appearance": ""
+      }
+    }
+  },
+  "bakery": {
+    "attributes": {
+      "name": {
+        "appearance": ""
+      },
+      "rating": {
+        "appearance": ""
+      }
+    }
+  },
+  "wallets": {
+    "attributes": {
+      "Color: blue": {
+        "appearance": ""
+      }
+    }
+  },
+  "productview": {
+    "attributes": {
+      "viewing": {
+        "appearance": ""
+      }
+    }
+  }
+}
