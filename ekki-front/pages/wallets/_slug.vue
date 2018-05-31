@@ -1,14 +1,8 @@
 <template>
 <section class="container">
-  <div>
-    <!-- <button @click="updateView(productviewid,false)">removeView</button> -->
-    <!-- <input v-model="input" type="text" /> -->
-
-    <!-- {{wallets}} -->
-    <!-- {{viewing}} -->
-    <!-- {{wallet}} -->
+  <div :style="isBeingViewed?{'opacity':'0.5'}:{'opacity':'1'}">
     <h1>wallet page<br /></h1>
-    <div :key="wallet.id">
+    <div :key="$route.params.slug">
       <h1>
           <span v-if="wallet['Color: yellow']" style="color:yellow; font-size:200%">●</span>
           <span v-if="wallet['Color: blue']" style="color:blue; font-size:200%">●</span>
@@ -21,6 +15,18 @@
       <!-- {{wallet.productimage_a}} -->
       <img v-if="wallet.productimage_a" :src="'http://localhost:1337'+wallet.productimage_a.url" />
       <!-- <img :src="'http://localhost:1337'+wallet.productimage_a.url" /> -->
+
+      <button
+      class="snipcart-add-item"
+      :data-item-id="$route.params.slug"
+      :data-item-name="'wallet'+$route.params.slug"
+      data-item-price="19.99"
+      data-item-max-quantity="1"
+      data-item-weight="20"
+      :data-item-url="'http://0581b2d3.ngrok.io/wallets/'+$route.params.slug"
+      data-item-description="wallet">
+      Buy wallet {{$route.params.slug}}
+    </button>
     </div>
   </div>
 </section>
@@ -40,8 +46,11 @@ export default {
       input: 'test',
       productviewid: '',
       viewing: [],
+      isBeingViewed:false,
       wallet: [],
-      exist: false
+      exist: false,
+      initiatePage: false
+
 
     }
   },
@@ -55,13 +64,26 @@ export default {
         .then((res) => {
           if (res.status !== 200) return;
           res.json().then(function(data) {
+            console.log(data)
+            console.log(data[0].viewing)
             console.log(data.length)
             if (data.length === 0) {
               vm.createView()
             } else {
-              console.log()
+              console.log(data[0].viewing)
               vm.productviewid = data[0].id
               vm.updateView(vm.productviewid, true)
+
+              // IF VIEWING
+              if(data[0].viewing){
+                vm.isBeingViewed= true
+                //PUSH ROUTER TO HOME + SET STATE SORRY BEING VIEWED MODAL
+                vm.$store.commit('viewing/SET_VIEWINGPOPUP',true)
+                vm.$router.push({ path: '/' })
+              }
+              // if(!vm.isBeingViewed){
+              //   vm.initiatePage = true
+              // }
             }
           })
         })
@@ -78,7 +100,9 @@ export default {
         })
         .then((res) => {
           if (res.status !== 200) return;
-          res.json().then((data) => console.log(data));
+          res.json().then(function(data){
+            console.log(data)
+          })
         })
         .catch((err) => console.log('Fetch Error :-S', err));
     },
@@ -101,20 +125,20 @@ export default {
         })
         .catch((err) => console.log('Fetch Error :-S', err));
     },
-    removeView: function() {
-      fetch('http://localhost:1337/productview', {
-          method: 'post',
-          headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-          },
-          body: `viewingid=` + this.$route.params.slug + '&viewing=false'
-        })
-        .then((res) => {
-          if (res.status !== 200) return;
-          res.json().then((data) => console.log(data));
-        })
-        .catch((err) => console.log('Fetch Error :-S', err));
-    },
+    // removeView: function() {
+    //   fetch('http://localhost:1337/productview', {
+    //       method: 'post',
+    //       headers: {
+    //         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    //       },
+    //       body: `viewingid=` + this.$route.params.slug + '&viewing=false'
+    //     })
+    //     .then((res) => {
+    //       if (res.status !== 200) return;
+    //       res.json().then((data) => console.log(data));
+    //     })
+    //     .catch((err) => console.log('Fetch Error :-S', err));
+    // },
     getWallet: function() {
       var vm = this
       fetch('http://localhost:1337/wallets/' + vm.$route.params.slug, {
@@ -141,7 +165,9 @@ export default {
     //
   },
   beforeDestroy() {
-    this.updateView(this.productviewid, false)
+    if(!this.isBeingViewed){
+      this.updateView(this.productviewid, false)
+    }
   },
   mounted() {
     this.checkIfViewExist()
@@ -156,9 +182,9 @@ export default {
 
     // socket.on('food_ready', (res) => console.log(res) this.viewing =['hey']);
 
-    socket.on('food_ready', function(data) {
-      vm.viewing.push(data)
-    });
+    // socket.on('food_ready', function(data) {
+    //   vm.viewing.push(data)
+    // });
 
     // console.log(socket)
     // const socket = io();

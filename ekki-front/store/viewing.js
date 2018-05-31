@@ -2,30 +2,24 @@ import _ from 'lodash'
 import axios from 'axios'
 
 export const state = () => ({
-  counter: 2,
-  employees: [0],
-  rootApi: ''
+  rootApi: '',
+  viewingpopup:false
 })
 
 export const mutations = {
 
+  SET_VIEWINGPOPUP(state, toggle) {
+    state.viewingpopup = toggle
+  },
+
   SET_ROOTAPI(state, url) {
     state.rootApi = url
   },
-  SET_EMPLOYEES(state, test) {
-    state.employees = test
+}
+
+export const getters = {
+
+  GET_VIEWINGPOPUP(state) {
+    return state.viewingpopup
   }
 }
-//
-// export const actions = {
-//   async GET_STARS({
-//     commit,state
-//   }) {
-//     // state.employees = [2,3]
-//     // console.log(state.rootApi)
-//     const { data } = await axios.get(state.rootApi)
-//     // console.log(data)
-//     commit('SET_INCREMENT')
-//     commit('SET_EMPLOYEES', [1,2,3,4])
-//   }
-// }

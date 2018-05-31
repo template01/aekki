@@ -1,32 +1,41 @@
 <template>
-<section class="container">
-  <div>
-    <!-- {{$store.state.viewing.employees}} -->
-    {{$store.state.isConnected}} {{$store.state.message}} {{$store.state.socketMessage}}
-    <h1>Index page<br /></h1>
-    <button @click="$store.commit('viewing/SET_INCREMENT')">xxxx{{ $store.state.counter }}</button>
-
-    <!-- <input v-model="input" type="text" /> -->
-    <div :style="wallet.viewing ? {'opacity':'0.2','pointer-events':'none','cursor':'not-allowed'}:{}" :key="wallet.id" v-for="wallet in  wallets">
-      <nuxt-link :to="'/wallets/'+wallet.id">
-        {{wallet.id}}<br><img :src="'http://localhost:1337'+wallet.productimage_a.url" />
-      </nuxt-link>
+<div>
+  <viewingpopup></viewingpopup>
+  <section :style="viewingpopup ? {'filter':'blur(20px)'}:{}" class="container">
+    <div>
+      <h1>Index page<br /></h1>
+      <!-- <input v-model="input" type="text" /> -->
+      <div :style="wallet.viewing ? {'opacity':'0.2','pointer-events':'none','cursor':'not-allowed'}:{}" :key="wallet.id" v-for="wallet in  wallets">
+        <nuxt-link :to="wallet.viewing ?  '' : '/wallets/'+wallet.id">
+          {{wallet.id}}<br><img :src="'http://localhost:1337'+wallet.productimage_a.url" />
+          <br>
+        </nuxt-link>
+      </div>
+      <!-- {{wallets}} -->
     </div>
-    <!-- {{wallets}} -->
-  </div>
-</section>
+  </section>
+</div>
 </template>
 
 <script>
 import {
-  mapMutations
+  mapMutations,
+  mapGetters
 } from 'vuex'
 
 import _ from 'lodash';
-import VueSocketio from 'vue-socket.io'
+import viewingpopup from '~/components/viewingpopup'
 
 export default {
-  components: {},
+  components: {
+    viewingpopup
+  },
+  computed: {
+    // mix the getters into computed with object spread operator
+    ...mapGetters({
+      viewingpopup: 'viewing/GET_VIEWINGPOPUP',
+    })
+  },
   data: function() {
     return {
       input: 'test',

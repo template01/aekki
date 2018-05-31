@@ -1,6 +1,12 @@
 <template>
   <div>
     <nuxt/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+    <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MzIxNWU0MGEtN2EwNi00ZmYzLWFmYTQtMjc4YjBkMzExMWJmNjM2NjMzMDQyNDk3MzAwMzYx"></script>
+
+    <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
+
   </div>
 </template>
 
