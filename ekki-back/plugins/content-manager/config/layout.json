@@ -1,1 +1,9 @@
-{}
+{
+  "soldwallets": {
+    "attributes": {
+      "test": {
+        "appearance": ""
+      }
+    }
+  }
+}

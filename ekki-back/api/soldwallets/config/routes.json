@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/soldwallets",
+      "handler": "Soldwallets.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/soldwallets/:_id",
+      "handler": "Soldwallets.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/soldwallets",
+      "handler": "Soldwallets.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/soldwallets/:_id",
+      "handler": "Soldwallets.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/soldwallets/:_id",
+      "handler": "Soldwallets.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
