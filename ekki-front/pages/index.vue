@@ -1,15 +1,22 @@
 <template>
-<div>
+<div v-if="initiatePage">
   <viewingpopup></viewingpopup>
-  <section :style="viewingpopup ? {'filter':'blur(20px)'}:{}" class="container">
+  <section :style="viewingpopup.status ? {'filter':'blur(20px)'}:{}" class="container">
     <div>
       <h1>Index page<br /></h1>
+      <br />
       <!-- <input v-model="input" type="text" /> -->
-      <div :style="wallet.viewing ? {'opacity':'0.2','pointer-events':'none','cursor':'not-allowed'}:{}" :key="wallet.id" v-for="wallet in  wallets">
+      <div :style="wallet.viewing ? {'opacity':'0.4','pointer-events':'none','cursor':'not-allowed'}:{}" :key="wallet.id" v-for="wallet in  wallets">
+
         <nuxt-link :to="wallet.viewing ?  '' : '/wallets/'+wallet.id">
           {{wallet.id}}<br><img :src="'http://localhost:1337'+wallet.productimage_a.url" />
           <br>
         </nuxt-link>
+
+        <div>
+          <h1 v-if="wallet.viewing && !wallet.sold" v-html="'Item Being Viewed!'"></h1>
+          <h1 v-if="wallet.sold" v-html="'Item Sold!'"></h1>
+        </div>
       </div>
       <!-- {{wallets}} -->
     </div>
@@ -41,6 +48,7 @@ export default {
       input: 'test',
       viewing: [],
       wallets: [],
+      initiatePage: false,
       testFind: ["5b08930d887ab91a3e0d19e3", "true"]
 
     }
@@ -76,6 +84,7 @@ export default {
             });
             vm.viewing = pickedData
             for (var i = 0, len = vm.viewing.length; i < len; i++) {
+              vm.initiatePage = true
               vm.setWalletView([vm.viewing[i].viewingid.toString(), vm.viewing[i].viewing.toString()])
             }
           });
@@ -98,6 +107,8 @@ export default {
             //   return _.pick(object, ['viewingid']);
             // });
             vm.wallets = data
+            vm.initiatePage = true
+
             vm.getInitViewing()
 
           });
@@ -105,38 +116,45 @@ export default {
         })
         .catch((err) => console.log('Fetch Error :-S', err));
     },
+    setWalletSold: function(input) {
+      // console.log('xxxxxxxxxxxxxxxxxxxx' + input)
+      var item = _.find(this.wallets, function(item) {
+        return item.id == input;
+      });
+      var index = _.indexOf(this.wallets, item);
+      // IF ITEM EXISTS
+      if(index>-1){
+          this.$set(this.wallets[index], 'sold', true)
+      }
+    },
     setWalletView: function(input) {
       // console.log('xxxxxxxxxxxxxxxxxxxx' + input)
       var item = _.find(this.wallets, function(item) {
         return item.id == input[0];
       });
       var index = _.indexOf(this.wallets, item);
-      console.log(input)
-      console.log('change TRIGGERED')
-      // var parse = JSON.parse(input)
-      if (input[1] === "true") {
-        this.$set(this.wallets[index], 'viewing', true)
+      // IF ITEM EXISTS
+      if(index>-1){
+        if (input[1] === "true") {
+          this.$set(this.wallets[index], 'viewing', true)
+        }
+        if (input[1] === "false") {
+          this.$set(this.wallets[index], 'viewing', false)
+        }
       }
-      if (input[1] === "false") {
-        this.$set(this.wallets[index], 'viewing', false)
-      }
-      // this.$set(this.wallets[index],'viewing',false)
-
     }
   },
-  created() {
-    // this.viewing =
-  },
-
 
   mounted() {
     this.getWallets()
     // connect user throught socket
     const socket = io('http://localhost:1337');
     socket.on('hello', (res) => console.log(res + res + res));
-    socket.on('test', (res) => console.log(res));
 
     var vm = this
+    socket.on('item set ordered', function(data) {
+      vm.setWalletSold(data.id)
+    });
     socket.on('wallet_view', function(data) {
       console.log('changexxxxxxxxxxxxxxxxxxxxxx')
       vm.setWalletView(data)

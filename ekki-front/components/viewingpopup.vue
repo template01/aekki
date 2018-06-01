@@ -1,8 +1,10 @@
 <template>
-  <div @click="$store.commit('viewing/SET_VIEWINGPOPUP',false)" v-if="viewingpopup" class="viewingpopup">
+  <div @click="$store.commit('viewing/SET_VIEWINGPOPUP', {'status':false,'message':''})" v-if="viewingpopup.status" class="viewingpopup">
     <div class="inner">
-      Solly, the item is being viewed by someone else...
-      <button @click="$store.commit('viewing/SET_VIEWINGPOPUP',false)">its ok!</button>
+      <span v-if="viewingpopup.message==='notexist'">Solly, this item does not exist anymore...</span>
+      <span v-if="viewingpopup.message==='isviewed'">Solly, the item is being viewed by someone else...</span>
+
+      <button @click="$store.commit('viewing/SET_VIEWINGPOPUP', {'status':false,'message':''})">its ok!</button>
     </div>
   </div>
 </template>

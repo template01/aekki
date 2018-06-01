@@ -2,6 +2,8 @@
 const fetch = require('node-fetch');
 const base64 = require('base-64');
 const _ = require('lodash');
+var io = require('socket.io')(strapi.server);
+
 const snipapi =  require('./snipapi.json')
 var snipApi =  snipapi.key
 var encodedSnipApi = base64.encode(':' + snipApi)
@@ -21,10 +23,33 @@ function deleteProduct(token) {
         console.log(result.items)
         for (var i = 0, len = result.items.length; i < len; i++) {
          console.log(result.items[i].id)
-         // remove product
-         strapi.services.wallets.remove({'_id':result.items[i].id});
+         sendItemSold(result.items[i].id)
+         // dublicate + remove product
+         duplicateAndDelete(result.items[i].id)
         }
       }
+    });
+}
+
+function sendItemSold(id){
+  io.sockets.emit('item set ordered', {
+    id: '5b1130001423b157946e4758'
+  });
+}
+
+function duplicateAndDelete(id){
+  fetch('http://localhost:1337/wallets/' + id, {
+      method: 'GET',
+
+    })
+    .then(res => res.json())
+    .then(function(result) {
+      //if not empty - IF ORDER REALLY HAS BEEN PLACED
+      console.log(result)
+      // duplicate item
+      strapi.services.soldwallets.add(result);
+      // delet wallet item
+      strapi.services.wallets.remove({'_id':id});
     });
 }
 /**
@@ -40,7 +65,6 @@ function deleteProduct(token) {
 // };
 //
 module.exports = cb => {
-  var io = require('socket.io')(strapi.server);
   // var users = [];
   io.on('connection', function(socket) {
 
@@ -50,8 +74,6 @@ module.exports = cb => {
     socket.emit('hello', JSON.stringify({
       message: 'Hello World'
     }));
-    // socket.user_id = (Math.random() * 100000000000000); // not so secure
-    // users.push(socket); // save the socket to use it later
     socket.on('disconnect', () => {
       console.log('exittttttttttttttttttttttttttttttttt')
 
@@ -70,15 +92,8 @@ module.exports = cb => {
         });
       }
 
-      // users.forEach((user, i) => {
-      //   // delete saved user when they disconnect
-      //   if(user.user_id === socket.user_id) users.splice(i, 1);
-      // });
     });
     socket.on('item ordered', function(token) {
-      console.log(token)
-
-
       setTimeout(function() {
         deleteProduct(token)
       }, 500)

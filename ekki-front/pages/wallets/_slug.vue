@@ -1,6 +1,6 @@
 <template>
 <section class="container">
-  <div :style="isBeingViewed?{'opacity':'0.5'}:{'opacity':'1'}">
+  <div v-if="initiatePage" :style="isBeingViewed?{'opacity':'0.5'}:{'opacity':'1'}">
     <nuxt-link :to="'/'"><h1>home</h1></nuxt-link>
     <h1>wallet page<br /></h1> {{baseUrl+$route.path}}
     <div :key="$route.params.slug">
@@ -17,11 +17,11 @@
       <img v-if="wallet.productimage_a" :src="'http://localhost:1337'+wallet.productimage_a.url" />
       <!-- <img :src="'http://localhost:1337'+wallet.productimage_a.url" /> -->
 
-      <button class="snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'wallet'+$route.params.slug" data-item-price="19.99" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path" data-item-description="wallet">
-      Buy wallet {{$route.params.slug}}
-    </button>
     </div>
   </div>
+  <button class="snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'wallet'+$route.params.slug" data-item-price="19.99" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path" data-item-description="wallet">
+    Buy wallet {{$route.params.slug}}
+  </button>
 </section>
 </template>
 
@@ -112,10 +112,9 @@ export default {
               if (data[0].viewing) {
                 vm.isBeingViewed = true
                 //PUSH ROUTER TO HOME + SET STATE SORRY BEING VIEWED MODAL
-                vm.$store.commit('viewing/SET_VIEWINGPOPUP', true)
-                vm.$router.push({
-                  path: '/'
-                })
+                vm.sendToIndex('isviewed')
+              }else{
+                vm.getWallet()
               }
               // if(!vm.isBeingViewed){
               //   vm.initiatePage = true
@@ -124,6 +123,13 @@ export default {
           })
         })
         .catch((err) => console.log('Fetch Error :-S', err));
+    },
+
+    sendToIndex: function(messageCode){
+      this.$store.commit('viewing/SET_VIEWINGPOPUP', {'status':true,'message':messageCode})
+      this.$router.push({
+        path: '/'
+      })
     },
     updateView: function(id, state) {
       console.log('send')
@@ -168,9 +174,18 @@ export default {
           method: 'get',
         })
         .then((res) => {
-          if (res.status !== 200) return;
+          if (res.status !== 200){
+            vm.sendToIndex('notexist')
+          }
           res.json().then(function(data) {
+            vm.initiatePage = true
             vm.wallet = data
+            // vm.checkIfViewExist()
+            vm.snipCartOpen()
+            vm.snipOrderComplete()
+            const socket = io('http://localhost:1337');
+            socket.on('hello', (res) => console.log(res));
+
           });
         })
         .catch((err) => console.log('Fetch Error :-S', err));
@@ -186,29 +201,8 @@ export default {
     }
   },
   mounted() {
-    this.checkIfViewExist()
-    this.getWallet()
-    this.snipCartOpen()
-    this.snipOrderComplete()
-    // this.sendView()
-    // connect user throught socket
-    const socket = io('http://localhost:1337');
-    socket.on('hello', (res) => console.log(res));
-    var vm = this
-    // socket.on('food_ready', res => vm.viewing.push[res]);
-    // socket.on('food_ready', res => food.innerHTML += `<div>- ${res.name} is ${res.rating}/5 so delicious</div>`);
+      this.checkIfViewExist()
 
-    // socket.on('food_ready', (res) => console.log(res) this.viewing =['hey']);
-
-    // socket.on('food_ready', function(data) {
-    //   vm.viewing.push(data)
-    // });
-
-    // console.log(socket)
-    // const socket = io();
-    // socket.connect('http://localhost:1337');
-    // // listen for event name 'hello' & log it
-    // socket.on('hello', (res) => console.log(res));
   }
 }
 </script>
