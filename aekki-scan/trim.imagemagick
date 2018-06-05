@@ -1,0 +1,27 @@
+
+// TRIM IMAGE
+
+convert Image.jpg -crop `convert Image.jpg -virtual-pixel edge -fuzz 99% -trim -format '%[fx:w+240]x%[fx:h+240)]+%[fx:page.x-120]+%[fx:page.y-120]' info:` +repage   trimmed.jpg && eog trimmed.jpg
+
+convert des.jpg -crop `convert des.jpg -virtual-pixel edge -fuzz 99% -trim -format '%[fx:w+240]x%[fx:h+240)]+%[fx:page.x-120]+%[fx:page.y-120]' info:` +repage   trimmed2.jpg && eog trimmed2.jpg
+
+
+// LEVEL IMAGE (dark grey to black)
+
+convert  trimmed.jpg  -level 20%,85%  levels.jpg && eog levels.jpg
+
+
+
+
+
+
+
+
+
+convert input.jpg -fuzz 28% -trim +repage prepared.jpg
+
+./deskew -o deskewed.jpg prepared.jpg
+
+convert  deskewed.jpg  -level 20%,70%  leveled.jpg
+
+convert leveled.jpg -crop `convert leveled.jpg -virtual-pixel edge -fuzz 70% -trim -format '%[fx:w+240]x%[fx:h+240)]+%[fx:page.x-120]+%[fx:page.y-120]' info:` +repage   final.jpg

@@ -1,0 +1,8 @@
+#!/bin/bash
+input=$1
+convert $input -fuzz 28% -trim +repage prepared_$input &&
+# /bin/sh deskewstep.sh $input
+# ./deskew -o deskewed_$input prepared_$input > tmp &&
+convert  deskewed_$input  -level 15%,80%  leveled_$input &&
+convert leveled_$input -crop `convert leveled_$input -virtual-pixel edge -fuzz 90% -trim -format '%[fx:w+240]x%[fx:h+240)]+%[fx:page.x-120]+%[fx:page.y-120]' info:` +repage out_$input &&
+rm deskewed_$input prepared_$input leveled_$input

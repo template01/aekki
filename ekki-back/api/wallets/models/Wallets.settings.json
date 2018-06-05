@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "wallets",
   "info": {
     "name": "wallets",
     "description": ""
@@ -14,13 +14,13 @@
       "via": "related",
       "plugin": "upload"
     },
-    "Color: blue": {
+    "Color-blue": {
       "type": "boolean"
     },
-    "Color: red": {
+    "Color-red": {
       "type": "boolean"
     },
-    "Color: yellow": {
+    "Color-yellow": {
       "type": "boolean"
     }
   }
