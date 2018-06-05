@@ -1,12 +1,36 @@
 <template>
 <section class="container">
+  <table style="width:600px">
+    <tbody>
 
-  <div v-if="canstart && allfilledin">
-    <button @click="createWallet">createWallet</button>
-  </div>
-  <scanitem side="sideA" class="scanItem"></scanitem>
-  <scanitem side="sideB"  class="scanItem"></scanitem>
+  <tr>
+    <td>Scan Side A</td>
+    <td><img style="width:200px" v-if="$store.state.sideA.data" :src="$store.state.sideA.data[0].url" /></td>
+    <th><scanitem side="sideA" class="scanItem"></scanitem></th>
+  </tr>
+  <tr>
+    <td>Scan Side B</td>
+    <td><img style="width:200px" v-if="$store.state.sideB.data" :src="$store.state.sideB.data[0].url" /></td>
+    <td><scanitem side="sideB"  class="scanItem"></scanitem></td>
+  </tr>
+  <tr>
+    <td>
+    <div v-if="canstart && allfilledin">
+      <button @click="createWallet">createWallet</button>
+    </div>
+    <div v-if="canstart && !allfilledin">
+      fill in all plz
+    </div>
+    </td>
+  </tr>
+</tbody>
+</table>
 
+
+
+
+  <link rel="stylesheet" :href="'croppie/croppie.css'" />
+  <script :src="'croppie/croppie.js'"></script>
 </section>
 </template>
 
