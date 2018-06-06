@@ -3,21 +3,10 @@
   <viewingpopup></viewingpopup>
   <section :style="viewingpopup.status ? {'filter':'blur(20px)'}:{}" class="container">
     <div>
-      <h1>Index page<br /></h1>
-      <br />
       <!-- <input v-model="input" type="text" /> -->
-      <div :style="wallet.viewing ? {'opacity':'0.4','pointer-events':'none','cursor':'not-allowed'}:{}" :key="wallet.id" v-for="wallet in  wallets">
-
-        <nuxt-link :to="wallet.viewing ?  '' : '/wallets/'+wallet.id">
-          {{wallet.id}}<br><img :src="'http://localhost:1337'+wallet.productimage_a.url" />
-          <br>
-        </nuxt-link>
-
-        <div>
-          <h1 v-if="wallet.viewing && !wallet.sold" v-html="'Item Being Viewed!'"></h1>
-          <h1 v-if="wallet.sold" v-html="'Item Sold!'"></h1>
-        </div>
-      </div>
+      <!-- <div :style="wallet.viewing ? {'opacity':'0.4','pointer-events':'none','cursor':'not-allowed'}:{}" :key="wallet.id" v-for="wallet in  wallets"> -->
+        <walletitemindex :link="wallet.id" :viewing="wallet.viewing" :data="wallet" :style="[wallet.viewing ? {'opacity':'0.4','pointer-events':'none','cursor':'not-allowed'}:{}, {'transform':'rotate('+randomrotate()+'deg)'}]" :key="wallet.id" v-for="wallet in  wallets"></walletitemindex>
+      <!-- </div> -->
       <!-- {{wallets}} -->
     </div>
   </section>
@@ -32,10 +21,12 @@ import {
 
 import _ from 'lodash';
 import viewingpopup from '~/components/viewingpopup'
+import walletitemindex from '~/components/walletitemindex'
 
 export default {
   components: {
-    viewingpopup
+    viewingpopup,
+    walletitemindex
   },
   computed: {
     // mix the getters into computed with object spread operator
@@ -54,6 +45,9 @@ export default {
     }
   },
   methods: {
+    randomrotate: function(){
+      return Math.floor(Math.random() * 180)
+    },
     sendView: function() {
       fetch('http://localhost:1337/productview', {
           method: 'post',

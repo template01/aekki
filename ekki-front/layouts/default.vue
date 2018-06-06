@@ -1,6 +1,11 @@
 <template>
   <div>
-    <nuxt/>
+    <div id="sidebar">
+      sidebar
+    </div>
+    <div id="main">
+      <nuxt/>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
     <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MzIxNWU0MGEtN2EwNi00ZmYzLWFmYTQtMjc4YjBkMzExMWJmNjM2NjMzMDQyNDk3MzAwMzYx"></script>
@@ -20,7 +25,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background: lightgrey;
+  /* background: lightgrey; */
+  overflow-x: hidden;
 }
 
 *, *:before, *:after {
@@ -28,4 +34,14 @@ html {
   margin: 0;
 }
 
+#sidebar{
+  background: red;
+  width: 20%;
+  height: 100%;
+  position: fixed;
+}
+#main{
+  width: 80%;
+  float: right;
+}
 </style>

@@ -1,10 +1,5 @@
 <template>
 <div class="wrapper">
-  {{side}}
-  <!-- {{$store.state[side]}} -->
-  <!-- <div class="imagePlaceholder">
-  <img :src="image_i" />
-  </div> -->
   <img style="display:none" />
 
 
@@ -20,19 +15,24 @@
   <!-- </div> -->
 
   <div id="" class="cropWrapOuter">
-      <div class="optionsWrapper">
-        <button v-if="ignoreNoData" v-on:click="$emit('close')">Nothing set. Just close it!</button>
-        <button v-else v-on:click="checkClose()">Close</button>
+    <div class="optionsWrapper">
+      <button v-if="ignoreNoData" v-on:click="$emit('close')">Nothing set. Just close it!</button>
+      <button v-else v-on:click="checkClose()">Close</button>
 
-        <button @click="initScan">Rescan</button>
-        <span v-if="loading" class="loading-spinner">|</span>
-        <button v-if="!loading && image_i" @click="rotateCroppie()">Rotate</button>
-        <button v-if="!loading && image_i && !imageblob" @click="setBlobResult()">Set</button>
-        <button v-if="!loading && image_i && imageblob" @click="uploadImage()">Send</button>
+      <button @click="initScan" v-if="!loading">Rescan</button>
+      <!-- <span v-if="loading" class="loading-spinner">|</span> -->
+      <button v-if="!loading && image_i" @click="rotateCroppie()">Rotate</button>
+      <button v-if="!loading && image_i && !imageblob" @click="setBlobResult()">Done</button>
+      <button v-if="!loading && image_i && imageblob"><span v-if="justSent">Thanks! You can go back now.</span><span v-if="!justSent" @click="uploadImage()">Send</span></button>
+    </div>
+    <div class="cropWrapInner">
+      <div id="" class="cropWrap">
+        <p v-if="loading" class="loading-spinner" style="text-align: center;">
+          SCANNING
+        </p>
       </div>
-      <div>
-        <div id="" class="cropWrap"></div>
-      </div>
+
+    </div>
   </div>
 
   <!-- v-if="loading" -->
@@ -51,7 +51,8 @@ export default {
       loading: false,
       croppieInstance: '',
       ignoreNoData: false,
-      hasSent:false
+      hasSent: false,
+      justSent: false
     }
   },
 
@@ -66,21 +67,21 @@ export default {
     // },1000)
   },
   methods: {
-    checkClose: function(){
-      if(this.$store.state[this.side].data && this.imageblob && this.hasSent){
+    checkClose: function() {
+      if (this.$store.state[this.side].data && this.imageblob && this.hasSent) {
         this.$emit('close')
-      }else{
+      } else {
         this.ignoreNoData = true
         var vm = this
-        setTimeout(function(){
+        setTimeout(function() {
           vm.ignoreNoData = false
-        },2000)
+        }, 2000)
       }
     },
     startCroppie: function() {
       var vm = this
       var el = vm.$el.querySelector(".cropWrap");
-      if(vm.croppieInstance.length!=0){
+      if (vm.croppieInstance.length != 0) {
         vm.croppieInstance.destroy()
       }
       vm.croppieInstance = new Croppie(el, {
@@ -105,14 +106,16 @@ export default {
         zoom: 0.4
       });
 
-      el.addEventListener('update', function(ev) { vm.imageblob='' });
+      el.addEventListener('update', function(ev) {
+        vm.imageblob = ''
+      });
 
       vm.loading = false
       vm.modalopen = true
 
 
     },
-    rotateCroppie: function(){
+    rotateCroppie: function() {
       var vm = this
       vm.croppieInstance.rotate(90)
     },
@@ -123,8 +126,10 @@ export default {
       this.croppieInstance.result({
         "type": "blob",
         "format": "jpeg",
-        "size": {"width":1024},
-        "quality":0.85
+        "size": {
+          "width": 1024
+        },
+        "quality": 0.85
       }).then(function(blob) {
 
         console.log(blob)
@@ -166,6 +171,11 @@ export default {
             vm.hasSent = true
             vm.ignoreNoData = false
             console.log(data)
+            vm.justSent = true
+
+            setTimeout(function() {
+              vm.justSent = false
+            }, 2000)
           })
         })
         .catch((err) => console.log('Fetch Error :-S', err));
@@ -176,16 +186,19 @@ export default {
       this.loading = true
       this.image_i = ''
       var vm = this
-      var gotImage = function(){
-        var imageUrl = 'test.jpg';
-        // var imageUrl = URL.createObjectURL(blob);
-        var img = vm.$el.querySelector('img');
-        // alert(URL.revokeObjectURL(imageUrl))
-        img.addEventListener('load', () => URL.revokeObjectURL(imageUrl));
+      var gotImage = function(blob) {
+
+        // UNCOMMENT THIS LINE WHEN NO SCANNER
+        // var imageUrl = 'test.jpg';
+
+        // COMMENT THIS LINE WHEN NO SCANNER
+        var imageUrl = URL.createObjectURL(blob);
+
         vm.image_i = imageUrl
         vm.startCroppie()
       }
-      gotImage()
+      // UNCOMMENT THIS LINE WHEN NO SCANNER
+      // gotImage()
       var url = 'http://localhost:8080/api/scanitem';
       var options = {
         method: 'POST',
@@ -193,18 +206,18 @@ export default {
       var request = new Request(url);
       fetch(request, options).then((response) => response.blob())
         .then((blob) => {
-          gotImage()
+          // COMMENT THIS LINE WHEN NO SCANNER
+          gotImage(blob)
         })
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .loading-spinner {
   animation: rotate 1.5s linear infinite;
   display: block;
-  position: absolute;
   right: -20px;
 }
 
@@ -241,19 +254,45 @@ img {
   display: block;
 }
 
-.wrapper{
+.wrapper {
   display: block;
   padding: 20px;
   z-index: 1000;
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.8);
   width: 100%;
   height: 100%;
 }
-.optionsWrapper{
-  background: red;
+
+.optionsWrapper {
   display: inline-block;
+
+}
+
+.optionsWrapper button {
+  margin-right: 5px;
+}
+
+.cropWrapInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+}
+
+.cropWrap {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto !important;
+  width: auto !important;
 }
 </style>

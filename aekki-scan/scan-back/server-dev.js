@@ -71,13 +71,13 @@ app.post('/api/scanitem', function(req, res) {
   // var geo = req.body.geo;
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.contentType('image/jpeg');
-  runpipeline().then(function(result) {
-    console.log(result); // "Stuff worked!"
-    // var image = fs.createReadStream('./output/'+result.trim())
-    // image.pipe(res);
-  }, function(err) {
-    console.log(err); // Error: "It broke"
-  });
+  // runpipeline().then(function(result) {
+  //   console.log(result); // "Stuff worked!"
+  //   // var image = fs.createReadStream('./output/'+result.trim())
+  //   // image.pipe(res);
+  // }, function(err) {
+  //   console.log(err); // Error: "It broke"
+  // });
 });
 
 // headers: {

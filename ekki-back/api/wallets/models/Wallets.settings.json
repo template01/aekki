@@ -14,6 +14,26 @@
       "via": "related",
       "plugin": "upload"
     },
+    "productimage_b": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "Color-white": {
+      "type": "boolean"
+    },
+    "Color-orange": {
+      "type": "boolean"
+    },
+    "Color-black": {
+      "type": "boolean"
+    },
+    "Color-purple": {
+      "type": "boolean"
+    },
+    "Color-green": {
+      "type": "boolean"
+    },
     "Color-blue": {
       "type": "boolean"
     },
@@ -23,8 +43,8 @@
     "Color-yellow": {
       "type": "boolean"
     },
-    "Colors": {
-      "type": "json"
+    "Model": {
+      "type": "string"
     }
   }
 }
