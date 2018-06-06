@@ -5,5 +5,12 @@
         "appearance": ""
       }
     }
+  },
+  "wallets": {
+    "attributes": {
+      "Colors": {
+        "appearance": ""
+      }
+    }
   }
 }

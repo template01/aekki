@@ -1,5 +1,6 @@
 <template>
 <div class="wrapper">
+  {{side}}
   <!-- {{$store.state[side]}} -->
   <!-- <div class="imagePlaceholder">
   <img :src="image_i" />
@@ -7,29 +8,31 @@
   <img style="display:none" />
 
 
-
-  <div class="buttonWrapper">
+  <!-- <div class="buttonWrapper">
     <div v-if="!image_i">
       <button  @click="initScan">Scan</button>
       <span v-if="loading" class="loading-spinner">|</span>
     </div>
     <div  v-else>
     <button @click="modalopen=true">Adjust</button>
-  </div>
+  </div> -->
 
-  </div>
+  <!-- </div> -->
 
-  <div v-show="modalopen" id="" class="cropWrapOuter">
-    <div>
-      <div id="" class="cropWrap"></div>
-    </div>
+  <div id="" class="cropWrapOuter">
+      <div class="optionsWrapper">
+        <button v-if="ignoreNoData" v-on:click="$emit('close')">Nothing set. Just close it!</button>
+        <button v-else v-on:click="checkClose()">Close</button>
 
-      <button @click="modalopen=false">Close</button>
-      <button @click="initScan">Rescan</button>
-      <span v-if="loading" class="loading-spinner">|</span>
-      <button v-if="!loading && image_i" @click="rotateCroppie()">Rotate</button>
-      <button v-if="!loading && image_i && !imageblob" @click="setBlobResult()">Set</button>
-      <button v-if="!loading && image_i && imageblob" @click="uploadImage()">Send</button>
+        <button @click="initScan">Rescan</button>
+        <span v-if="loading" class="loading-spinner">|</span>
+        <button v-if="!loading && image_i" @click="rotateCroppie()">Rotate</button>
+        <button v-if="!loading && image_i && !imageblob" @click="setBlobResult()">Set</button>
+        <button v-if="!loading && image_i && imageblob" @click="uploadImage()">Send</button>
+      </div>
+      <div>
+        <div id="" class="cropWrap"></div>
+      </div>
   </div>
 
   <!-- v-if="loading" -->
@@ -46,15 +49,34 @@ export default {
       image_i: '',
       imageblob: '',
       loading: false,
-      croppieInstance: ''
+      croppieInstance: '',
+      ignoreNoData: false,
+      hasSent:false
     }
   },
 
 
   props: ['side'],
   mounted() {
+    var vm = this
+    vm.initScan()
+    // setTimeout(function() {
+    //
+    //   alert('go')
+    // },1000)
   },
   methods: {
+    checkClose: function(){
+      if(this.$store.state[this.side].data && this.imageblob && this.hasSent){
+        this.$emit('close')
+      }else{
+        this.ignoreNoData = true
+        var vm = this
+        setTimeout(function(){
+          vm.ignoreNoData = false
+        },2000)
+      }
+    },
     startCroppie: function() {
       var vm = this
       var el = vm.$el.querySelector(".cropWrap");
@@ -63,12 +85,12 @@ export default {
       }
       vm.croppieInstance = new Croppie(el, {
         viewport: {
-          width: 800,
-          height: 400
+          width: 500,
+          height: 300
         },
         boundary: {
-          width: 1200,
-          height: 800
+          width: 900,
+          height: 500
         },
         showZoomer: false,
         enableResize: true,
@@ -80,7 +102,7 @@ export default {
         url: vm.image_i,
         orientation: 6,
 
-        zoom: 0.5
+        zoom: 0.4
       });
 
       el.addEventListener('update', function(ev) { vm.imageblob='' });
@@ -141,6 +163,8 @@ export default {
               state: true,
               response: data
             })
+            vm.hasSent = true
+            vm.ignoreNoData = false
             console.log(data)
           })
         })
@@ -148,47 +172,29 @@ export default {
     },
 
     initScan: function() {
+      this.ignoreNoData = false
       this.loading = true
       this.image_i = ''
       var vm = this
-
+      var gotImage = function(){
+        var imageUrl = 'test.jpg';
+        // var imageUrl = URL.createObjectURL(blob);
+        var img = vm.$el.querySelector('img');
+        // alert(URL.revokeObjectURL(imageUrl))
+        img.addEventListener('load', () => URL.revokeObjectURL(imageUrl));
+        vm.image_i = imageUrl
+        vm.startCroppie()
+      }
+      gotImage()
       var url = 'http://localhost:8080/api/scanitem';
       var options = {
         method: 'POST',
       };
       var request = new Request(url);
-
-      // fetch(request, options).then((response) => {
-      //   response.arrayBuffer().then((buffer) => {
-      //     // var base64Flag = 'data:image/jpeg;base64,';
-      //     var imageStr = arrayBufferToBase64(buffer);
-      //     vm.image_i = imageStr
-      //     vm.loading= false
-      //     // document.querySelector('img').src = base64Flag + imageStr;
-      //   });
-      // });
-
-
       fetch(request, options).then((response) => response.blob())
         .then((blob) => {
-
-          var imageUrl = URL.createObjectURL(blob);
-          var img = vm.$el.querySelector('img');
-          // alert(URL.revokeObjectURL(imageUrl))
-          img.addEventListener('load', () => URL.revokeObjectURL(imageUrl));
-          vm.image_i = imageUrl
-          vm.startCroppie()
+          gotImage()
         })
-
-
-      function arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-
-        bytes.forEach((b) => binary += String.fromCharCode(b));
-
-        return window.btoa(binary);
-      };
     }
   }
 }
@@ -235,8 +241,9 @@ img {
   display: block;
 }
 
-.cropWrapOuter{
-  padding: 80px;
+.wrapper{
+  display: block;
+  padding: 20px;
   z-index: 1000;
   position: fixed;
   top: 0;
@@ -244,5 +251,9 @@ img {
   background: rgba(255,255,255,0.5);
   width: 100%;
   height: 100%;
+}
+.optionsWrapper{
+  background: red;
+  display: inline-block;
 }
 </style>

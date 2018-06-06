@@ -1,30 +1,42 @@
 <template>
 <section class="container">
-  <table style="width:600px">
-    <tbody>
+  <scanitem v-on:close="sideAopen = false" v-if="sideAopen" side="sideA" class="scanItem"></scanitem>
+  <scanitem v-on:close="sideBopen = false" v-if="sideBopen" side="sideB" class="scanItem"></scanitem>
+  <div class="tableWrapper">
 
-  <tr>
-    <td>Scan Side A</td>
-    <td><img style="width:200px" v-if="$store.state.sideA.data" :src="$store.state.sideA.data[0].url" /></td>
-    <th><scanitem side="sideA" class="scanItem"></scanitem></th>
-  </tr>
-  <tr>
-    <td>Scan Side B</td>
-    <td><img style="width:200px" v-if="$store.state.sideB.data" :src="$store.state.sideB.data[0].url" /></td>
-    <td><scanitem side="sideB"  class="scanItem"></scanitem></td>
-  </tr>
-  <tr>
-    <td>
-    <div v-if="canstart && allfilledin">
-      <button @click="createWallet">createWallet</button>
+    <table style="width:600px">
+      <tbody>
+
+        <tr>
+          <td><span>Scan Side A</span></td>
+          <td><button @click="sideAopen = !sideAopen">Open Scan Modal</button></td>
+          <td><img style="width:200px" v-if="$store.state.sideA.data" :src="$store.state.sideA.data[0].url" />
+            <span v-else>... waiting for scan</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span>Scan Side B</span></td>
+          <td><button @click="sideBopen = !sideBopen">Open Scan Modal</button></td>
+          <td><img style="width:200px" v-if="$store.state.sideB.data" :src="$store.state.sideB.data[0].url" />
+            <span v-else>... waiting for scan</span>
+          </td>
+        </tr>
+        <!-- <tr> -->
+        <!-- <td> -->
+        <!-- </td> -->
+        <!-- </tr> -->
+      </tbody>
+    </table>
+    <div class="uploadWrapper">
+      <div v-if="canstart && allfilledin">
+        <button @click="createWallet">createWallet</button>
+      </div>
+      <div v-if="canstart && !allfilledin">
+        <span>fill in all plz</span>
+      </div>
     </div>
-    <div v-if="canstart && !allfilledin">
-      fill in all plz
-    </div>
-    </td>
-  </tr>
-</tbody>
-</table>
+  </div>
+
 
 
 
@@ -48,12 +60,14 @@ export default {
       tokenScan: '',
       canstart: false,
       image: '',
+      sideAopen: false,
+      sideBopen: false
 
     }
   },
 
-  computed:{
-    allfilledin: function(){
+  computed: {
+    allfilledin: function() {
       return this.$store.state.sideA.state && this.$store.state.sideB.state
     },
   },
@@ -69,9 +83,12 @@ export default {
           method: 'post',
           headers: {
             "Content-type": "application/json",
-            'Authorization': `Bearer `+vm.$store.state.jwtAuthToken
+            'Authorization': `Bearer ` + vm.$store.state.jwtAuthToken
           },
-          body: JSON.stringify({'Color-blue': true, 'productimage_a': this.$store.state.sideA.data[0]})
+          body: JSON.stringify({
+            'Color-blue': true,
+            'productimage_a': this.$store.state.sideA.data[0]
+          })
 
           //  `Color-blue=` + 'true' + '&' + `productimage_a=` + JSON.stringify(this.$store.state.sideA.data[0])
         })
@@ -101,7 +118,7 @@ export default {
 
           res.json().then(function(data) {
             console.log(data.jwt)
-            vm.$store.commit('setAuthToken',data.jwt)
+            vm.$store.commit('setAuthToken', data.jwt)
             vm.tokenScan = data.jwt
             vm.canstart = true
           })
@@ -112,43 +129,6 @@ export default {
 
   mounted() {
     this.getAuth()
-    // (async() => {
-    //   const rawResponse = await fetch('http://localhost:1337/auth/local', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       identifier: 'scanopsuser',
-    //       password: 'erunrebe'
-    //     })
-    //   });
-    //   const content = await rawResponse.json();
-    //
-    //   console.log(content.jwt);
-    // })();
-
-
-    // (async() => {
-    //   const rawResponse = await fetch('http://localhost:1337/auth/local', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       identifier: 'scanopsuser',
-    //       password: 'erunrebe'
-    //     })
-    //   });
-    //   const content = await rawResponse.json();
-    //
-    //   console.log(content.jwt);
-    // })();
-    // headers: {
-    //   Authorization: `Bearer ${token}`
-    // },
   }
 
 }
@@ -157,5 +137,35 @@ export default {
 <style>
 .scanItem {
   float: left
+}
+
+.tableWrapper {
+  margin: 0 auto;
+  display: table;
+  margin-top: 80px;
+}
+
+.uploadWrapper{
+  text-align: center;
+  padding-top: 20px;
+}
+
+table,
+td,
+th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  height: 50px;
+}
+
+td {
+  padding: 20px;
 }
 </style>
