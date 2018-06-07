@@ -1,7 +1,17 @@
 <template>
   <div>
     <div id="sidebar">
-      sidebar
+
+      <nav>
+        <nuxt-link :to="'/'"><img width="100%" src="/logow.svg"/></nuxt-link>
+        <p>
+          <nuxt-link :to="'/vision'"><span class="circleNav"></span>Vision</nuxt-link>
+        </p>
+        <p>
+          <nuxt-link :to="'/about'"><span class="circleNav"></span>About</nuxt-link>
+        </p>
+
+      </nav>
     </div>
     <div id="main">
       <nuxt/>
@@ -18,7 +28,7 @@
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 36px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -35,10 +45,22 @@ html {
 }
 
 #sidebar{
-  background: red;
+  background: black;
   width: 20%;
   height: 100%;
   position: fixed;
+  padding: 5px;
+  color: white;
+}
+#sidebar a{
+  text-decoration: none;
+  color: inherit;
+}
+#sidebar .circleNav::after{
+ content: "○";
+}
+#sidebar .nuxt-link-exact-active .circleNav::after{
+ content: "●";
 }
 #main{
   width: 80%;
