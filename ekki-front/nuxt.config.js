@@ -4,9 +4,6 @@ module.exports = {
    */
   head: {
     title: 'ekki-front',
-    script: [{
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'
-    }],
 
     meta: [{
         charset: 'utf-8'
@@ -25,8 +22,17 @@ module.exports = {
       rel: 'icon',
       type: 'image/x-icon',
       href: '/favicon.ico'
-    }
-    ]
+    }],
+    script: [{
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'
+      },
+      {
+        src: 'lib/circletype.min.js'
+      }, {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js'
+      }
+    ],
+
   },
   /*
    ** Customize the progress bar color
@@ -34,8 +40,7 @@ module.exports = {
   loading: {
     color: '#3B8070'
   },
-  plugins: [
-],
+  plugins: [],
   /*
    ** Build configuration
    */

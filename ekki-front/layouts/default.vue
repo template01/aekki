@@ -1,19 +1,8 @@
 <template>
-  <div>
-    <div id="sidebar">
+  <div class="slide-layout" :class="$store.state.menu.menuOpen ? 'slide-layout-right':''">
+    <sidebar></sidebar>
 
-      <nav>
-        <nuxt-link :to="'/'"><img width="100%" src="/logow.svg"/></nuxt-link>
-        <p>
-          <nuxt-link :to="'/vision'"><span class="circleNav"></span>Vision</nuxt-link>
-        </p>
-        <p>
-          <nuxt-link :to="'/about'"><span class="circleNav"></span>About</nuxt-link>
-        </p>
-
-      </nav>
-    </div>
-    <div id="main">
+    <div  id="main">
       <nuxt/>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
@@ -24,7 +13,16 @@
 
   </div>
 </template>
+<script>
+import sidebar from '~/components/sidebar.vue'
+export default {
+  components: {
+    sidebar,
+  },
 
+
+}
+</script>
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -44,26 +42,18 @@ html {
   margin: 0;
 }
 
-#sidebar{
-  background: black;
-  width: 20%;
-  height: 100%;
-  position: fixed;
-  padding: 5px;
-  color: white;
-}
-#sidebar a{
-  text-decoration: none;
-  color: inherit;
-}
-#sidebar .circleNav::after{
- content: "○";
-}
-#sidebar .nuxt-link-exact-active .circleNav::after{
- content: "●";
-}
 #main{
-  width: 80%;
+  width: calc(100% - 100px);
   float: right;
+  display: block;
+
+}
+.slide-layout{
+  transition: margin 0.2s ease-in-out;
+  display: block;
+}
+.slide-layout-right{
+  margin-right: -400px;
+  margin-left: 400px;
 }
 </style>

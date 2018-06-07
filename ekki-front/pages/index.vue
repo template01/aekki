@@ -3,11 +3,12 @@
   <viewingpopup></viewingpopup>
   <section :style="viewingpopup.status ? {'filter':'blur(20px)'}:{}" class="container">
     <div>
-      <!-- <input v-model="input" type="text" /> -->
-      <!-- <div :style="wallet.viewing ? {'opacity':'0.4','pointer-events':'none','cursor':'not-allowed'}:{}" :key="wallet.id" v-for="wallet in  wallets"> -->
-        <walletitemindex :link="wallet.id" :viewing="wallet.viewing" :data="wallet" :style="[wallet.viewing ? {'opacity':'0.4','pointer-events':'none','cursor':'not-allowed'}:{}, {'transform':'rotate('+randomrotate()+'deg)'}]" :key="wallet.id" v-for="wallet in  wallets"></walletitemindex>
-      <!-- </div> -->
-      <!-- {{wallets}} -->
+      <div class="grid-column">
+        <walletitemindex :link="wallet.id" :isviewing="wallet.viewing" :data="wallet" :key="wallet.id" v-for="wallet in  walletsFirstColumn"></walletitemindex>
+      </div>
+      <div class="grid-column">
+        <walletitemindex :link="wallet.id" :isviewing="wallet.viewing" :data="wallet" :key="wallet.id" v-for="wallet in  walletsSecondColumn"></walletitemindex>
+      </div>
     </div>
   </section>
 </div>
@@ -29,10 +30,34 @@ export default {
     walletitemindex
   },
   computed: {
+    walletsFirstColumn: function() {
+      // var even = function(num) {
+      //   return num % 2 === 0;
+      // };
+      // return this.wallets.filter(even);
+
+      // var arr = [4,5,7,8,14,45,76];
+      var filtered = this.wallets.filter(function(element, index, array) {
+        return (index % 2 === 0);
+      });
+      return filtered
+
+    },
+    walletsSecondColumn: function() {
+      var filtered = this.wallets.filter(function(element, index, array) {
+        return (index % 2 === 1);
+      });
+      return filtered
+
+
+    },
     // mix the getters into computed with object spread operator
     ...mapGetters({
       viewingpopup: 'viewing/GET_VIEWINGPOPUP',
     })
+  },
+  methods: {
+
   },
   data: function() {
     return {
@@ -45,9 +70,7 @@ export default {
     }
   },
   methods: {
-    randomrotate: function(){
-      return Math.floor(Math.random() * 180)
-    },
+
     sendView: function() {
       fetch('http://localhost:1337/productview', {
           method: 'post',
@@ -117,8 +140,8 @@ export default {
       });
       var index = _.indexOf(this.wallets, item);
       // IF ITEM EXISTS
-      if(index>-1){
-          this.$set(this.wallets[index], 'sold', true)
+      if (index > -1) {
+        this.$set(this.wallets[index], 'sold', true)
       }
     },
     setWalletView: function(input) {
@@ -128,7 +151,7 @@ export default {
       });
       var index = _.indexOf(this.wallets, item);
       // IF ITEM EXISTS
-      if(index>-1){
+      if (index > -1) {
         if (input[1] === "true") {
           this.$set(this.wallets[index], 'viewing', true)
         }
@@ -159,5 +182,10 @@ export default {
 </script>
 
 <style>
-
+.grid-column {
+  display: grid;
+  width: 50%;
+  float: left;
+  overflow: hidden;
+}
 </style>
