@@ -3,7 +3,10 @@ import axios from 'axios'
 
 export const state = () => ({
   rootApi: '',
-  ordered:false
+  ordered:false,
+  prices:{
+    "ækki-one":"20EUR"
+  }
 })
 
 export const mutations = {

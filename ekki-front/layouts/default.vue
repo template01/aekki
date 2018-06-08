@@ -25,7 +25,7 @@ export default {
 </script>
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Space Mono', monospace;
   font-size: 36px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
