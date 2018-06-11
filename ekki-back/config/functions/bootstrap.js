@@ -33,7 +33,8 @@ function deleteProduct(token) {
 
 function sendItemSold(id){
   io.sockets.emit('item set ordered', {
-    id: '5b1130001423b157946e4758'
+    id: id
+    // id: '5b1130001423b157946e4758'
   });
 }
 
@@ -95,13 +96,13 @@ module.exports = cb => {
     });
     socket.on('item ordered', function(token) {
       setTimeout(function() {
-        deleteProduct(token)
+        // deleteProduct(token)
       }, 500)
       setTimeout(function() {
-        deleteProduct(token)
+        // deleteProduct(token)
       }, 1000)
       setTimeout(function() {
-        deleteProduct(token)
+        // deleteProduct(token)
       }, 1500)
     });
   });

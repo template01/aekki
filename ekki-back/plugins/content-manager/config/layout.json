@@ -15,5 +15,12 @@
         "appearance": ""
       }
     }
+  },
+  "pay": {
+    "attributes": {
+      "pay": {
+        "appearance": ""
+      }
+    }
   }
 }
