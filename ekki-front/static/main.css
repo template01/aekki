@@ -1,0 +1,14 @@
+
+.page-enter-active, .page-leave-active {
+  transition: all .3s ease-out;
+  transition-delay: 0.25s;
+}
+.page-enter, .page-leave-active {
+  opacity: 0;
+
+}
+.page-leave-active, .page-leave-active {
+ transform: translateX(-50vw);
+ transition: all .15s ease-out;
+
+}

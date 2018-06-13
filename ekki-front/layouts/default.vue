@@ -24,6 +24,17 @@ export default {
 }
 </script>
 <style>
+.nuxt-progress{
+  /*transform: rotate(90deg) !important;*/
+  right: 0 !important;
+  /*opacity: 1 !important;*/
+  /*width: 40% !important;*/
+  height: 100% !important;
+  left: auto !important;
+  max-width: calc(100% - 100px);
+  -webkit-transition: width 0.8s, opacity 0.4s;
+    transition: width 0.8s, opacity 0.4s
+}
 html {
   font-family: 'Space Mono', monospace;
   font-size: 36px;

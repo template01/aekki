@@ -182,6 +182,7 @@ export default {
 </script>
 
 <style>
+
 .grid-column {
   display: grid;
   width: 50%;

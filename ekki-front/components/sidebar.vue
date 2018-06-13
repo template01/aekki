@@ -94,6 +94,7 @@ export default {
   font-size: 100px;
   line-height: 100px;
   font-weight: bold;
+  z-index: 1000;
   /* padding: 5px; */
   /* color: white; */
 }

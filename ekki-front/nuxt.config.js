@@ -19,18 +19,21 @@ module.exports = {
       }
     ],
     link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    },{
-      rel: 'stylesheet',
-      href: '/hamburgers.css'
-    },
-    {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css?family=Space+Mono'
-    },
-  ],
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
+      }, {
+        rel: 'stylesheet',
+        href: '/main.css'
+      }, {
+        rel: 'stylesheet',
+        href: '/hamburgers.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Space+Mono'
+      },
+    ],
     script: [{
         src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'
       },
@@ -46,9 +49,16 @@ module.exports = {
    ** Customize the progress bar color
    */
   loading: {
-    color: '#3B8070'
+    color: 'black',
+    duration: 5000,
+    height: '100px'
   },
+  // loading: false,
   plugins: [],
+
+  router: {
+    middleware: 'collapseMenu'
+  },
   /*
    ** Build configuration
    */
