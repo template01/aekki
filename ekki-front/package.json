@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "js-cookie": "^2.2.0",
     "lodash": "^4.17.10",
-    "nuxt": "^1.0.0"
+    "nuxt": "^1.0.0",
+    "smoothscroll-polyfill": "^0.4.3",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
