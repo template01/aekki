@@ -183,10 +183,5 @@ export default {
 
 <style>
 
-.grid-column {
-  display: grid;
-  width: 50%;
-  float: left;
-  overflow: hidden;
-}
+
 </style>

@@ -1,26 +1,22 @@
 <template>
 <section class="container">
   <div v-if="initiatePage" :style="isBeingViewed?{'opacity':'0.5'}:{'opacity':'1'}">
-    <nuxt-link :to="'/'"><h1>home</h1></nuxt-link>
-    <h1>wallet page<br /></h1> {{baseUrl+$route.path}}
     <div :key="$route.params.slug">
-      <h1>
-          <span v-if="wallet['Color: yellow']" style="color:yellow; font-size:200%">●</span>
-          <span v-if="wallet['Color: blue']" style="color:blue; font-size:200%">●</span>
-          <span v-if="wallet['Color: red']" style="color:red; font-size:200%">●</span>
+      <!-- <h1>
+          <span v-if="product['Color: yellow']" style="color:yellow; font-size:200%">●</span>
+          <span v-if="product['Color: blue']" style="color:blue; font-size:200%">●</span>
+          <span v-if="product['Color: red']" style="color:red; font-size:200%">●</span>
 
-        </h1>
-
-      <!-- {{wallet}} -->
-      <br />
-      <!-- {{wallet.productimage_a}} -->
-      <img v-if="wallet.productimage_a" :src="'http://localhost:1337'+wallet.productimage_a.url" />
-      <!-- <img :src="'http://localhost:1337'+wallet.productimage_a.url" /> -->
+        </h1> -->
+        <div class="grid-column">
+          <img v-if="product.productimage_a" :src="'http://localhost:1337'+product.productimage_a.url" />
+          <img v-if="product.productimage_b" :src="'http://localhost:1337'+product.productimage_b.url" />
+        </div>
 
     </div>
   </div>
-  <button class="snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'wallet'+$route.params.slug" data-item-price="19.99" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path" data-item-description="wallet">
-    Buy wallet {{$route.params.slug}}
+  <button class="snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'product'+$route.params.slug" data-item-price="19.99" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path" data-item-description="product">
+    Buy product {{$route.params.slug}}
   </button>
 </section>
 </template>
@@ -41,7 +37,7 @@ export default {
       productviewid: '',
       viewing: [],
       isBeingViewed: false,
-      wallet: [],
+      product: [],
       exist: false,
       initiatePage: false,
       baseUrl: ''
@@ -114,7 +110,7 @@ export default {
                 //PUSH ROUTER TO HOME + SET STATE SORRY BEING VIEWED MODAL
                 vm.sendToIndex('isviewed')
               }else{
-                vm.getWallet()
+                vm.getproduct()
               }
               // if(!vm.isBeingViewed){
               //   vm.initiatePage = true
@@ -168,7 +164,7 @@ export default {
         .catch((err) => console.log('Fetch Error :-S', err));
     },
 
-    getWallet: function() {
+    getproduct: function() {
       var vm = this
       fetch('http://localhost:1337/wallets/' + vm.$route.params.slug, {
           method: 'get',
@@ -179,7 +175,7 @@ export default {
           }
           res.json().then(function(data) {
             vm.initiatePage = true
-            vm.wallet = data
+            vm.product = data
             // vm.checkIfViewExist()
             vm.snipCartOpen()
             vm.snipOrderComplete()

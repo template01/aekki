@@ -62,7 +62,7 @@
   </div>
 
   <div>
-    <nuxt-link :to="isviewing ?  '' : '/wallets/'+link">
+    <nuxt-link :to="isviewing ?  '' : '/product/'+link">
       <!-- {{wallet.id}}<br> -->
       <div class="inner">
         <img :src="'http://localhost:1337'+data.productimage_a.url" />

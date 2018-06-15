@@ -1,0 +1,9 @@
+.grid-column {
+  display: grid;
+  width: 50%;
+  float: left;
+  overflow: hidden;
+  img{
+    max-width: 100%;
+  }
+}

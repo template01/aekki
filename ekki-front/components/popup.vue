@@ -25,7 +25,6 @@ export default {
   computed: {
    // mix the getters into computed with object spread operator
    ...mapGetters({
-     viewingpopup: 'viewing/GET_VIEWINGPOPUP',
    })
  },
   data: function() {
@@ -39,11 +38,11 @@ export default {
     slideDownStart: function() {
       var vm = this
       setTimeout(function() {
-        if(vm.$store.state.cookies.popupwelcome){
+        // if(vm.$store.state.cookies.popupwelcome){
           vm.opacity=1
           vm.slideDownOffset=0
           vm.slideDown=true
-        }
+        // }
       },1000)
     },
     closePopupAgree: function(){

@@ -1,9 +1,10 @@
 <template>
 <div class="slide-layout" :class="$store.state.menu.menuOpen ? 'slide-layout-right':''">
   <sidebar></sidebar>
-
   <div id="main">
     <popup v-if="mountpopupwelcome"></popup>
+
+
     <nuxt/>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
@@ -24,31 +25,37 @@ export default {
   },
   data: function() {
     return {
-      mountpopupwelcome: false,
+      mountpopupwelcome: true,
+    }
+  },
+  methods:{
+    getCookie: function(cname){
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    },
+    checkPopupCookie: function(){
+
+
+      if(this.getCookie("popupwelcomeclosed")==='false'){
+        this.mountpopupwelcome = true
+      }else{
+        this.mountpopupwelcome = false
+      }
     }
   },
   mounted() {
 
-    function getCookie(cname) {
-      var name = cname + "=";
-      var ca = document.cookie.split(';');
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
-
-    if(getCookie("popupwelcomeclosed")==='false'){
-      this.mountpopupwelcome = true
-    }else{
-      this.mountpopupwelcome = false
-    }
+    this.checkPopupCookie()
 
 
   }
