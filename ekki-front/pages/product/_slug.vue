@@ -1,28 +1,17 @@
 <template>
-<section class="container">
+<section class="">
   <div v-if="initiatePage" :style="isBeingViewed?{'opacity':'0.5'}:{'opacity':'1'}">
-    <div :key="$route.params.slug">
-      <!-- <h1>
-          <span v-if="product['Color: yellow']" style="color:yellow; font-size:200%">●</span>
-          <span v-if="product['Color: blue']" style="color:blue; font-size:200%">●</span>
-          <span v-if="product['Color: red']" style="color:red; font-size:200%">●</span>
+    <productcontent :baseUrl="baseUrl" :product="product"></productcontent>
 
-        </h1> -->
-        <div class="grid-column">
-          <img v-if="product.productimage_a" :src="'http://localhost:1337'+product.productimage_a.url" />
-          <img v-if="product.productimage_b" :src="'http://localhost:1337'+product.productimage_b.url" />
-        </div>
-
-    </div>
   </div>
-  <button class="snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'product'+$route.params.slug" data-item-price="19.99" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path" data-item-description="product">
-    Buy product {{$route.params.slug}}
-  </button>
+
 </section>
 </template>
 
 <script>
 import _ from 'lodash';
+import axios from 'axios';
+import productcontent from '~/components/productcontent.vue';
 // import {
 //   mapGetters
 // } from 'vuex'
@@ -30,6 +19,7 @@ import _ from 'lodash';
 
 export default {
   components: {
+    productcontent
   },
   data: function() {
     return {
@@ -44,17 +34,50 @@ export default {
 
     }
   },
- //  computed: {
- //   // mix the getters into computed with object spread operator
- //   ...mapGetters({
- //     ordered: 'order/GET_ORDERED',
- //   })
- // },
+  computed: {
+    productcolors: function() {
+      // return 'blue'
+      var colors = [{
+          "set": this.product['Color-white'] ? true : false,
+          "value": "white"
+        },
+        {
+          "set": this.product['Color-green'] ? true : false,
+          "value": "green"
+        },
+        {
+          "set": this.product['Color-black'] ? true : false,
+          "value": "black"
+        },
+        {
+          "set": this.product['Color-purple'] ? true : false,
+          "value": "purple"
+        },
+        {
+          "set": this.product['Color-yellow'] ? true : false,
+          "value": "yellow"
+        },
+        {
+          "set": this.product['Color-red'] ? true : false,
+          "value": "red"
+        },
+        {
+          "set": this.product['Color-blue'] ? true : false,
+          "value": "blue"
+        },
+        {
+          "set": this.product['Color-orange'] ? true : false,
+          "value": "orange"
+        }
+      ]
+      return colors;
+    }
+  },
   methods: {
 
-    emitOrderTokenServer: function(data){
+    emitOrderTokenServer: function(data) {
       const socket = io('http://localhost:1337');
-      socket.emit ('item ordered', data)
+      socket.emit('item ordered', data)
     },
 
     snipCartOpen: function() {
@@ -72,12 +95,12 @@ export default {
         console.log(data);
         vm.emitOrderTokenServer(data.token)
         // if(vm.ordered){
-          Snipcart.subscribe('cart.closed', function() {
-            console.log('Snipcart popup has been closed');
-            alert('Snipcart popup has been closed');
-            // vm.$store.commit('order/SET_ORDERED',false)
-            Snipcart.unsubscribe('cart.closed');
-          });
+        Snipcart.subscribe('cart.closed', function() {
+          console.log('Snipcart popup has been closed');
+          alert('Snipcart popup has been closed');
+          // vm.$store.commit('order/SET_ORDERED',false)
+          Snipcart.unsubscribe('cart.closed');
+        });
         // }
       });
     },
@@ -99,30 +122,40 @@ export default {
           res.json().then(function(data) {
             if (data.length === 0) {
               vm.createView()
+              // vm.getproduct()
+
+              // vm.initiatePage = true
+              // alert('dang')
             } else {
               console.log(data[0].viewing)
               vm.productviewid = data[0].id
-              vm.updateView(vm.productviewid, true)
 
               // IF VIEWING
               if (data[0].viewing) {
                 vm.isBeingViewed = true
-                //PUSH ROUTER TO HOME + SET STATE SORRY BEING VIEWED MODAL
-                vm.sendToIndex('isviewed')
-              }else{
-                vm.getproduct()
+
+                // //PUSH ROUTER TO HOME + SET STATE SORRY BEING VIEWED MODAL
+                setTimeout(function() {
+                  vm.sendToIndex('isviewed');
+                }, 500);
+
+              } else {
+
+                vm.updateView(vm.productviewid, true)
+                // vm.getproduct()
+
               }
-              // if(!vm.isBeingViewed){
-              //   vm.initiatePage = true
-              // }
             }
           })
         })
         .catch((err) => console.log('Fetch Error :-S', err));
     },
 
-    sendToIndex: function(messageCode){
-      this.$store.commit('viewing/SET_VIEWINGPOPUP', {'status':true,'message':messageCode})
+    sendToIndex: function(messageCode) {
+      this.$store.commit('viewing/SET_VIEWINGPOPUP', {
+        'status': true,
+        'message': messageCode
+      })
       this.$router.push({
         path: '/'
       })
@@ -170,17 +203,16 @@ export default {
           method: 'get',
         })
         .then((res) => {
-          if (res.status !== 200){
+          if (res.status !== 200) {
             vm.sendToIndex('notexist')
           }
           res.json().then(function(data) {
             vm.initiatePage = true
             vm.product = data
-            // vm.checkIfViewExist()
-            vm.snipCartOpen()
-            vm.snipOrderComplete()
+            // vm.snipCartOpen()
+            // vm.snipOrderComplete()
             const socket = io('http://localhost:1337');
-            socket.on('hello', (res) => console.log(res));
+            // socket.on('hello', (res) => console.log(res));
 
           });
         })
@@ -197,12 +229,223 @@ export default {
     }
   },
   mounted() {
-      this.checkIfViewExist()
+    const socket = io('http://localhost:1337');
+    this.checkIfViewExist()
 
-  }
+  },
+
+  asyncData(context) {
+    console.log(context.route)
+
+    return axios.get('http://localhost:1337/wallets/' + context.route.params.slug)
+      .then((res) => {
+        return {
+          ass: 'testa',
+          product: res.data,
+          price: res.data.ProductModel.price,
+          initiatePage: true
+        }
+      })
+
+  },
+
+
 }
 </script>
 
-<style>
-
-</style>
+// <style lang="scss">
+// .header-buy {
+//     position: fixed;
+//     height: 100px;
+//     width: calc(50% - 50px);
+//     right: 0;
+//     // background: black;
+//     .buy {
+//         // color: white;
+//         // background: red;
+//     }
+//     button {
+//         font-size: inherit;
+//         background: transparent;
+//         border: 0;
+//
+//     }
+//     .buyWrapper,
+//     .exclusiveWrapper {
+//         position: absolute;
+//         width: 100%;
+//         background: white;
+//         transform: translateY(-100px);
+//         transition: transform 0.5s;
+//
+//     }
+//
+//     .buyWrapper {
+//         -webkit-animation: slidedown 0.5s forwards;
+//         animation: slidedown 0.5s forwards;
+//         -webkit-animation-delay: 3s;
+//         animation-delay: 3s;
+//     }
+//
+//     .exclusiveWrapper {
+//         -webkit-animation: slidedownup 3s forwards;
+//         animation: slidedownup 3s forwards;
+//         -webkit-animation-delay: 1s;
+//         animation-delay: 1s;
+//     }
+//
+//     @-webkit-keyframes slidedownup {
+//         0% {
+//             transform: translateY(-100px);
+//         }
+//         10% {
+//             transform: translateY(0px);
+//         }
+//         60% {
+//             transform: translateY(0px);
+//         }
+//         70% {
+//             transform: translateY(-100px);
+//         }
+//         100% {
+//             transform: translateY(-100px);
+//         }
+//     }
+//
+//     @keyframes slidedownup {
+//         0% {
+//             transform: translateY(-100px);
+//         }
+//         10% {
+//             transform: translateY(0px);
+//         }
+//         60% {
+//             transform: translateY(0px);
+//         }
+//         70% {
+//             transform: translateY(-100px);
+//         }
+//         100% {
+//             transform: translateY(-100px);
+//         }
+//     }
+//
+//     @-webkit-keyframes slidedown {
+//         100% {
+//             transform: translateY(0px);
+//         }
+//     }
+//
+//     @keyframes slidedown {
+//         100% {
+//             transform: translateY(0px);
+//         }
+//     }
+// }
+//
+// .header-title {
+//     background: black;
+//     color: white;
+// }
+// .header {
+//     height: 100px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
+// .part-top {
+//     // margin-top: 100px;
+//     background: black;
+//     display: inline-block;
+//     color: white;
+//     width: 100%;
+//     .product-scans {
+//         img {
+//             max-width: 1024px;
+//             width: 100%;
+//             margin: 0 auto;
+//             display: block;
+//             padding: 2vw;
+//         }
+//     }
+// }
+// .part-bottom {
+//     background: white;
+//     line-height: 1.2;
+// }
+//
+// .colorCheck {
+//     display: inline-block;
+// }
+// .color-circle {
+//     width: 30px;
+//     height: 30px;
+//     display: inline-block;
+//     border: 2px solid black;
+//     border-radius: 100%;
+//     margin: 1px 1px -4px;
+// }
+//
+// .buynow {
+//     position: fixed;
+//     left: calc(50% - 50px + 50px);
+//     margin: 0 auto;
+//     height: 120px;
+//     width: 100px;
+//     background: white;
+//     margin-top: -60px;
+//     // border-radius: 100%;
+//     overflow: hidden;
+//     border: 4px solid black;
+//     // padding: 3vw;
+//     button {
+//         // color: white;
+//         background: none;
+//         position: absolute;
+//         line-height: 1;
+//         top: 0;
+//         left: 0;
+//         margin: 0 auto;
+//         border: 0;
+//         height: 100%;
+//         width: 100%;
+//         font-size: inherit;
+//         cursor: pointer;
+//         .buy,
+//         .price {
+//             display: block;
+//             position: absolute;
+//             line-height: 1;
+//             left: 0;
+//             margin: 0 auto;
+//             border: 0;
+//             height: 50%;
+//             width: 100%;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             font-size: 50%;
+//         }
+//         .price {
+//             bottom: 0;
+//             background: black;
+//             color: white;
+//             &::after {
+//                 content: '€';
+//             }
+//         }
+//         .buy {
+//             top: 0;
+//
+//         }
+//     }
+// }
+//
+// .border-right-desktop {
+//     border-right: solid black 2px;
+//
+// }
+// .border-left-desktop {
+//     border-left: solid black 2px;
+// }
+// </style>

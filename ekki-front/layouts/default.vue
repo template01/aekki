@@ -25,7 +25,7 @@ export default {
   },
   data: function() {
     return {
-      mountpopupwelcome: true,
+      mountpopupwelcome: false,
     }
   },
   methods:{

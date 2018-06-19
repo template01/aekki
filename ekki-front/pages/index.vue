@@ -1,7 +1,7 @@
 <template>
 <div v-if="initiatePage">
   <viewingpopup></viewingpopup>
-  <section :style="viewingpopup.status ? {'filter':'blur(20px)'}:{}" class="container">
+  <section :style="viewingpopup.status ? {'filter':'blur(20px)'}:{}" class="">
     <div>
       <div class="grid-column">
         <walletitemindex :link="wallet.id" :isviewing="wallet.viewing" :data="wallet" :key="wallet.id" v-for="wallet in  walletsFirstColumn"></walletitemindex>

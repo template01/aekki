@@ -62,7 +62,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 #popupwelcome{
   background: white;
   margin-top: -100px;

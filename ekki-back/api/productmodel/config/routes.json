@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/productmodel",
+      "handler": "Productmodel.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/productmodel/:_id",
+      "handler": "Productmodel.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/productmodel",
+      "handler": "Productmodel.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/productmodel/:_id",
+      "handler": "Productmodel.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/productmodel/:_id",
+      "handler": "Productmodel.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -45,6 +45,10 @@
     },
     "Model": {
       "type": "string"
+    },
+    "ProductModel": {
+      "model": "productmodel",
+      "via": "wallets"
     }
   }
 }

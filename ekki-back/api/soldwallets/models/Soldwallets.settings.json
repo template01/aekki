@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "soldwallets",
   "info": {
     "name": "soldwallets",
     "description": ""
@@ -14,14 +14,37 @@
       "via": "related",
       "plugin": "upload"
     },
-    "Color: blue": {
+    "productimage_b": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "Color-white": {
       "type": "boolean"
     },
-    "Color: red": {
+    "Color-orange": {
       "type": "boolean"
     },
-    "Color: yellow": {
+    "Color-black": {
       "type": "boolean"
+    },
+    "Color-purple": {
+      "type": "boolean"
+    },
+    "Color-green": {
+      "type": "boolean"
+    },
+    "Color-blue": {
+      "type": "boolean"
+    },
+    "Color-red": {
+      "type": "boolean"
+    },
+    "Color-yellow": {
+      "type": "boolean"
+    },
+    "Model": {
+      "type": "string"
     }
   }
 }

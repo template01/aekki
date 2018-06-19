@@ -22,5 +22,25 @@
         "appearance": ""
       }
     }
+  },
+  "productModel": {
+    "attributes": {
+      "title": {
+        "appearance": ""
+      },
+      "description": {
+        "appearance": ""
+      },
+      "price": {
+        "appearance": ""
+      }
+    }
+  },
+  "productmodel": {
+    "attributes": {
+      "Dimension Width Cm": {
+        "appearance": ""
+      }
+    }
   }
 }

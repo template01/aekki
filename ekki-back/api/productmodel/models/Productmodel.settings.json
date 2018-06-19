@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "productmodel",
+  "info": {
+    "name": "productmodel",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "DimensionWidthCm": {
+      "default": 10,
+      "type": "integer"
+    },
+    "DimensionHeightCm": {
+      "default": 10,
+      "type": "integer"
+    },
+    "video": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "wallets": {
+      "collection": "wallets",
+      "via": "ProductModel"
+    }
+  }
+}

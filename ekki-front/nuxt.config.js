@@ -38,8 +38,6 @@ module.exports = {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'
       },
       {
-        src: 'lib/circletype.min.js'
-      }, {
         src: 'https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js'
       }
     ],

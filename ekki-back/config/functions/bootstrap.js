@@ -80,7 +80,7 @@ module.exports = cb => {
 
       // on DISCONNECT remove viewing
       var disconnectUrl = socket.handshake.headers.referer
-      if (disconnectUrl.includes("wallets")) {
+      if (disconnectUrl.includes("product")) {
         // get walletid
         var id = disconnectUrl.split("/").pop()
         // emit disconnect
