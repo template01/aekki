@@ -8,30 +8,58 @@
   }
 }
 
+
+
 $spaceamounts: (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 75, 100); // Adjust this to include the pixel amounts you need.
 $sides: (top, bottom, left, right); // Leave this variable alone
+
 @each $space in $spaceamounts {
     @each $side in $sides {
+      @media (max-width: 1186px) {
+        .m#{str-slice($side, 0, 1)}-#{$space} {
+            margin-#{$side}: #{$space/3}px !important;
+        }
+        .p#{str-slice($side, 0, 1)}-#{$space} {
+            padding-#{$side}: #{$space/3}px !important;
+        }
+      }
+      @media (min-width: 1187px) {
         .m#{str-slice($side, 0, 1)}-#{$space} {
             margin-#{$side}: #{$space}px !important;
         }
         .p#{str-slice($side, 0, 1)}-#{$space} {
             padding-#{$side}: #{$space}px !important;
         }
-    }
+      }
 }
 
 @each $space in $spaceamounts {
+  @media (max-width: 1186px) {
+
+    .m-#{$space} {
+        margin: #{$space/3}px !important;
+    }
+    .p-#{$space} {
+        padding: #{$space/3}px !important;
+    }
+  }
+  @media (min-width: 1187px) {
+
     .m-#{$space} {
         margin: #{$space}px !important;
     }
     .p-#{$space} {
         padding: #{$space}px !important;
     }
+  }
 }
 
+ }
 
-@import "~bulma/sass/utilities/_all.sass";
+@import '~bulma/sass/utilities/initial-variables';
+@import '~bulma/sass/utilities/functions';
+// customize styles
+
 $primary: red;
 $info: orange;
 $success: green;
@@ -44,4 +72,14 @@ $text:black;
 $grey-dark: black;
 $family-sans-serif: 'Space Mono', monospace;
 $family-primary: 'Space Mono', monospace;
-@import "~bulma/bulma";
+$body-size: 36px;
+$hr-background-color:	$text;
+$hr-height: 3px;
+$hr-margin: 50px 2px;
+$size-7: 0.60rem;
+
+
+$gap: 64px;
+$tablet: 1060px + (2 * $gap);
+
+@import '~bulma';

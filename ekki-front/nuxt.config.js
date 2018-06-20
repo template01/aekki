@@ -55,7 +55,7 @@ module.exports = {
     height: '100px'
   },
   // loading: false,
-  plugins: [],
+  // plugins: ['~/plugins/markdownparser'],
 
   router: {
     middleware: 'collapseMenu'
@@ -67,6 +67,7 @@ module.exports = {
     /*
      ** Run ESLint on save
      */
+    // vendor: ['vue-simple-markdown'],
     extend(config, {
       isDev,
       isClient

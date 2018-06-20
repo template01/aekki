@@ -14,7 +14,7 @@ export const mutations = {
 
 export const getters = {
 
-  // GET_ORDERED(state) {
-  //   return state.ordered
-  // }
+  GET_TOGGLEMENU(state) {
+    return state.menuOpen
+  }
 }

@@ -78,8 +78,6 @@ export default {
 
 html {
   font-family: 'Space Mono', monospace;
-  font-size: 36px;
-  word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;

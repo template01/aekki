@@ -21,6 +21,7 @@
     "sass-loader": "^7.0.3"
   },
   "dependencies": {
+    "@studiohyperdrive/strapi-plugin-media": "0.0.9",
     "base-64": "^0.1.0",
     "lodash": "4.x.x",
     "node-fetch": "^2.1.2",

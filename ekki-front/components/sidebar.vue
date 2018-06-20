@@ -24,7 +24,7 @@
         <p>
           <nuxt-link :to="'/about'"><span class="circleNav"></span>About</nuxt-link>
         </p>
-        <div class="smalltextBottom">
+        <div class="smalltextBottom is-size-7">
           <p>
             <nuxt-link :to="'/info'"><span class="circleNav"></span>Info / Terms / Conditions </nuxt-link>
           </p>
@@ -81,7 +81,6 @@ export default {
 .smalltextBottom{
   position:  absolute;
   bottom: 0;
-  font-size: 20px;
   padding-bottom: 10px;
   line-height: 1;
 }
@@ -116,17 +115,17 @@ export default {
 } */
 
 .navHamburger{
-  height: 50px;
+  height: 80px;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 6px;
 }
 .hamburger{
   padding: 0;
 }
 .hamburger .hamburger-inner{
   width: 100%;
-  height: 11px;
-  margin-top: -5px;
+  height: 12px;
+  margin-top: -10px;
 }
 
 .hamburger:not(.is-active)>.hamburger-inner:after{
@@ -137,13 +136,13 @@ export default {
 }
 
 .hamburger-inner::before {
-    top: -20px;
-    height: 11px;
+    top: -22px;
+    height: 12px;
 
 }
 .hamburger-inner::after {
-    bottom: -20px;
-    height: 11px;
+    bottom: -22px;
+    height: 12px;
 
 }
 
@@ -157,11 +156,11 @@ export default {
 
 .hamburger.is-active .hamburger-inner:before{
   width: 36px;
-  transform: translate3d(-2px, 5px, 0) rotate(-45deg) scale(1, 1);
+  transform: translate3d(-1px, 8px, 0) rotate(-45deg) scale(1, 1);
 }
 .hamburger.is-active .hamburger-inner:after{
   width: 36px;
-  transform: translate3d(-2px, -5px, 0) rotate(45deg) scale(1, 1);
+  transform: translate3d(-1px, -8px, 0) rotate(45deg) scale(1, 1);
 }
 
 .hamburger:hover {

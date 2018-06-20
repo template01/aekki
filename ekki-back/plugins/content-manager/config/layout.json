@@ -40,6 +40,9 @@
     "attributes": {
       "Dimension Width Cm": {
         "appearance": ""
+      },
+      "description": {
+        "appearance": "WYSIWYG"
       }
     }
   }

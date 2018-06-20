@@ -12,9 +12,6 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
     "price": {
       "type": "integer"
     },
@@ -34,6 +31,9 @@
     "wallets": {
       "collection": "wallets",
       "via": "ProductModel"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

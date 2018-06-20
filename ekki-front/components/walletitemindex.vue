@@ -1,6 +1,7 @@
 <template>
 <!-- 'pointer-events':'none','cursor':'not-allowed' -->
 <div :style="[isviewing ? {}:{}, {'transform':'rotate('+randomrotate()+'deg)'},{'height':this.height}]" class="circleItem">
+
   <div v-if="isviewing ||  data.sold" class="viewinginfo">
     <div class="halfCircleBottom">
 
@@ -35,7 +36,7 @@
             <use xlink:href="#text_0_path" stroke="none" fill="none"/>
             <text fill="white" text-anchor="middle">
                 <textPath xlink:href="#text_0_path" startOffset="50%">
-                    <tspan dy="70" v-html="modelParsed" ></tspan>
+                    <tspan dy="70" v-html="data.ProductModel.title" ></tspan>
                 </textPath>
             </text>
         </svg>
@@ -51,7 +52,7 @@
             <use xlink:href="#text_1_path" stroke="none" fill="none"/>
             <text  fill="white" text-anchor="middle">
                 <textPath xlink:href="#text_1_path" startOffset="50%">
-                  <tspan dy="-50" v-html="$store.state.order.prices[modelParsed]"></tspan>
+                  <tspan dy="-50" v-html="data.ProductModel.price+'EUR'"></tspan>
                 </textPath>
             </text>
         </svg>
