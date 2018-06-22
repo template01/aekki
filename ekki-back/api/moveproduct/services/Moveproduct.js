@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Pay.js service
+ * Moveproduct.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -12,21 +12,21 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all pays.
+   * Promise to fetch all moveproducts.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('pay', params);
+    const filters = strapi.utils.models.convertParams('moveproduct', params);
     // Select field to populate.
-    const populate = Pay.associations
+    const populate = Moveproduct.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Pay
+    return Moveproduct
       .find()
       .where(filters.where)
       .sort(filters.sort)
@@ -36,75 +36,75 @@ module.exports = {
   },
 
   /**
-   * Promise to fetch a/an pay.
+   * Promise to fetch a/an moveproduct.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Pay.associations
+    const populate = Moveproduct.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Pay
-      .findOne(_.pick(params, _.keys(Pay.schema.paths)))
+    return Moveproduct
+      .findOne(_.pick(params, _.keys(Moveproduct.schema.paths)))
       .populate(populate);
   },
 
   /**
-   * Promise to add a/an pay.
+   * Promise to add a/an moveproduct.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Pay.associations.map(ast => ast.alias));
-    const data = _.omit(values, Pay.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Moveproduct.associations.map(ast => ast.alias));
+    const data = _.omit(values, Moveproduct.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Pay.create(data);
+    const entry = await Moveproduct.create(data);
 
     // Create relational data and return the entry.
-    return Pay.updateRelations({ id: entry.id, values: relations });
+    return Moveproduct.updateRelations({ id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an pay.
+   * Promise to edit a/an moveproduct.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Pay.associations.map(a => a.alias));
-    const data = _.omit(values, Pay.associations.map(a => a.alias));
+    const relations = _.pick(values, Moveproduct.associations.map(a => a.alias));
+    const data = _.omit(values, Moveproduct.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Pay.update(params, data, { multi: true });
+    const entry = await Moveproduct.update(params, data, { multi: true });
 
     // Update relational data and return the entry.
-    return Pay.updateRelations(Object.assign(params, { values: relations }));
+    return Moveproduct.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an pay.
+   * Promise to remove a/an moveproduct.
    *
    * @return {Promise}
    */
 
   remove: async params => {
     // Select field to populate.
-    const populate = Pay.associations
+    const populate = Moveproduct.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Pay
+    const data = await Moveproduct
       .findOneAndRemove(params, {})
       .populate(populate);
 
@@ -113,7 +113,7 @@ module.exports = {
     }
 
     await Promise.all(
-      Pay.associations.map(async association => {
+      Moveproduct.associations.map(async association => {
         const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
         const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 

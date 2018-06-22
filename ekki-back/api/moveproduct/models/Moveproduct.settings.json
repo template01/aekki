@@ -2,14 +2,14 @@
   "connection": "default",
   "collectionName": "",
   "info": {
-    "name": "pay",
+    "name": "moveproduct",
     "description": ""
   },
   "options": {
     "timestamps": true
   },
   "attributes": {
-    "pay": {
+    "none": {
       "type": "string"
     }
   }

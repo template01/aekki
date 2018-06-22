@@ -1,9 +1,10 @@
 {
   "routes": [
+
     {
       "method": "POST",
-      "path": "/pay",
-      "handler": "Pay.create",
+      "path": "/moveproduct",
+      "handler": "Moveproduct.create",
       "config": {
         "policies": []
       }

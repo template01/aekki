@@ -45,5 +45,12 @@
         "appearance": "WYSIWYG"
       }
     }
+  },
+  "moveproduct": {
+    "attributes": {
+      "none": {
+        "appearance": ""
+      }
+    }
   }
 }

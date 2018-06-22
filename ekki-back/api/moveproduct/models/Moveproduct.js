@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Lifecycle callbacks for the `Pay` model.
+ * Lifecycle callbacks for the `Moveproduct` model.
  */
 
 module.exports = {
