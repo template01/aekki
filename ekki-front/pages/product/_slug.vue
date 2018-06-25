@@ -199,7 +199,7 @@ export default {
 
     getproduct: function() {
       var vm = this
-      fetch('http://localhost:1337/wallets/' + vm.$route.params.slug, {
+      fetch('http://localhost:1337/product/' + vm.$route.params.slug, {
           method: 'get',
         })
         .then((res) => {
@@ -237,7 +237,7 @@ export default {
   asyncData(context) {
     console.log(context.route)
 
-    return axios.get('http://localhost:1337/wallets/' + context.route.params.slug)
+    return axios.get('http://localhost:1337/product/' + context.route.params.slug)
       .then((res) => {
         return {
           ass: 'testa',

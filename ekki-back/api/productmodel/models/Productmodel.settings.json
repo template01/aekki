@@ -28,9 +28,10 @@
       "via": "related",
       "plugin": "upload"
     },
-    "wallets": {
-      "collection": "wallets",
-      "via": "ProductModel"
+    "product": {
+      "collection": "product",
+      "via": "ProductModel",
+      "columnName": ""
     },
     "description": {
       "type": "text"

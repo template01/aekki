@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "soldwallets",
+  "collectionName": "product",
   "info": {
-    "name": "soldwallets",
+    "name": "product",
     "description": ""
   },
   "options": {
@@ -45,6 +45,10 @@
     },
     "Model": {
       "type": "string"
+    },
+    "ProductModel": {
+      "model": "productmodel",
+      "via": "product"
     }
   }
 }

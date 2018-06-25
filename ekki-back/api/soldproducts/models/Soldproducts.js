@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Lifecycle callbacks for the `Soldwallets` model.
+ * Lifecycle callbacks for the `Soldproducts` model.
  */
 
 module.exports = {

@@ -66,6 +66,8 @@ module.exports = {
       '_id': ctx.params._id
     });
     strapi.emitToAllUsers([findWalletId.viewingid, ctx.request.body.viewing]);
+
+
     console.log(ctx.params)
     return strapi.services.productview.edit(ctx.params, ctx.request.body);
   },

@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Lifecycle callbacks for the `Wallets` model.
+ * Lifecycle callbacks for the `Product` model.
  */
 
 module.exports = {

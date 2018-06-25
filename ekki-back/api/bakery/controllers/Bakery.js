@@ -49,7 +49,7 @@ module.exports = {
     // if this does NOT exist add to db and emit socket
     if(!itemExist){
         itemExist = await strapi.services.bakery.add(ctx.request.body);
-        strapi.emitToAllUsers(ctx.request.body);
+        // strapi.emitToAllUsers(ctx.request.body);
     }
     ctx.body = itemExist;
   },

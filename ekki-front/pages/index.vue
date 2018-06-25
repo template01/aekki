@@ -111,7 +111,7 @@ export default {
     },
     getWallets: function() {
       var vm = this
-      fetch('http://localhost:1337/wallets', {
+      fetch('http://localhost:1337/product', {
           method: 'get',
         })
         .then((res) => {
@@ -175,6 +175,10 @@ export default {
     socket.on('wallet_view', function(data) {
       console.log('changexxxxxxxxxxxxxxxxxxxxxx')
       vm.setWalletView(data)
+    });
+
+    socket.on('ass', function(data) {
+      alert('ass has run!')
     });
 
   }

@@ -4,8 +4,8 @@ const base64 = require('base-64');
 const _ = require('lodash');
 var io = require('socket.io')(strapi.server);
 
-const snipapi =  require('./snipapi.json')
-var snipApi =  snipapi.key
+const snipapi = require('./snipapi.json')
+var snipApi = snipapi.key
 var encodedSnipApi = base64.encode(':' + snipApi)
 
 function deleteProduct(token) {
@@ -22,24 +22,24 @@ function deleteProduct(token) {
       if (!_.isEmpty(result)) {
         console.log(result.items)
         for (var i = 0, len = result.items.length; i < len; i++) {
-         console.log(result.items[i].id)
-         sendItemSold(result.items[i].id)
-         // dublicate + remove product
-         duplicateAndDelete(result.items[i].id)
+          console.log(result.items[i].id)
+          sendItemSold(result.items[i].id)
+          // dublicate + remove product
+          duplicateAndDelete(result.items[i].id)
         }
       }
     });
 }
 
-function sendItemSold(id){
+function sendItemSold(id) {
   io.sockets.emit('item set ordered', {
     id: id
     // id: '5b1130001423b157946e4758'
   });
 }
 
-function duplicateAndDelete(id){
-  fetch('http://localhost:1337/wallets/' + id, {
+function duplicateAndDelete(id) {
+  fetch('http://localhost:1337/product/' + id, {
       method: 'GET',
 
     })
@@ -48,9 +48,11 @@ function duplicateAndDelete(id){
       //if not empty - IF ORDER REALLY HAS BEEN PLACED
       console.log(result)
       // duplicate item
-      strapi.services.soldwallets.add(result);
-      // delet wallet item
-      strapi.services.wallets.remove({'_id':id});
+      strapi.services.soldproducts.add(result);
+      // delet product item
+      strapi.services.product.remove({
+        '_id': id
+      });
     });
 }
 /**
@@ -70,18 +72,20 @@ module.exports = cb => {
   io.on('connection', function(socket) {
 
 
-    // strapi.services.soldwallets.add(strapi.services.wallets.fetch({'_id':'5b0fc5dc1a1ab63395f6be12'}));
+    // strapi.services.soldproducts.add(strapi.services.product.fetch({'_id':'5b0fc5dc1a1ab63395f6be12'}));
 
     socket.emit('hello', JSON.stringify({
-      message: 'Hello World'
+      message: 'START SOCKET'
     }));
+
+
     socket.on('disconnect', () => {
       console.log('exittttttttttttttttttttttttttttttttt')
 
       // on DISCONNECT remove viewing
       var disconnectUrl = socket.handshake.headers.referer
       if (disconnectUrl.includes("product")) {
-        // get walletid
+        // get productid
         var id = disconnectUrl.split("/").pop()
         // emit disconnect
         io.sockets.emit('wallet_view', [id, "false"]);
@@ -94,6 +98,10 @@ module.exports = cb => {
       }
 
     });
+
+
+
+
     socket.on('item ordered', function(token) {
       setTimeout(function() {
         // deleteProduct(token)
@@ -107,8 +115,23 @@ module.exports = cb => {
     });
   });
 
+
   strapi.io = io;
   // send to all users connected
-  strapi.emitToAllUsers = view => io.emit('wallet_view', view);
+  strapi.emitToAllUsers = view => io.sockets.emit('wallet_view', view);
+  // strapi.emitSoldItemToAllUsers = view => io.sockets.emit('ass');
+  strapi.emitSoldItemToAllUsers = view => io.sockets.emit('item set ordered', {
+    "id": view
+  });
+
+
+
+
+  // strapi.emitToAllUsers = view => io.emit('item set ordered',{});
+
+
+
+
+
   cb();
 };

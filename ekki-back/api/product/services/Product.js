@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Wallets.js service
+ * Product.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -12,21 +12,21 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all wallets.
+   * Promise to fetch all products.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('wallets', params);
+    const filters = strapi.utils.models.convertParams('product', params);
     // Select field to populate.
-    const populate = Wallets.associations
+    const populate = Product.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Wallets
+    return Product
       .find()
       .where(filters.where)
       .sort(filters.sort)
@@ -36,75 +36,75 @@ module.exports = {
   },
 
   /**
-   * Promise to fetch a/an wallets.
+   * Promise to fetch a/an product.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Wallets.associations
+    const populate = Product.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Wallets
-      .findOne(_.pick(params, _.keys(Wallets.schema.paths)))
+    return Product
+      .findOne(_.pick(params, _.keys(Product.schema.paths)))
       .populate(populate);
   },
 
   /**
-   * Promise to add a/an wallets.
+   * Promise to add a/an product.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Wallets.associations.map(ast => ast.alias));
-    const data = _.omit(values, Wallets.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Product.associations.map(ast => ast.alias));
+    const data = _.omit(values, Product.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Wallets.create(data);
+    const entry = await Product.create(data);
 
     // Create relational data and return the entry.
-    return Wallets.updateRelations({ id: entry.id, values: relations });
+    return Product.updateRelations({ id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an wallets.
+   * Promise to edit a/an product.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Wallets.associations.map(a => a.alias));
-    const data = _.omit(values, Wallets.associations.map(a => a.alias));
+    const relations = _.pick(values, Product.associations.map(a => a.alias));
+    const data = _.omit(values, Product.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Wallets.update(params, data, { multi: true });
+    const entry = await Product.update(params, data, { multi: true });
 
     // Update relational data and return the entry.
-    return Wallets.updateRelations(Object.assign(params, { values: relations }));
+    return Product.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an wallets.
+   * Promise to remove a/an product.
    *
    * @return {Promise}
    */
 
   remove: async params => {
     // Select field to populate.
-    const populate = Wallets.associations
+    const populate = Product.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Wallets
+    const data = await Product
       .findOneAndRemove(params, {})
       .populate(populate);
 
@@ -113,7 +113,7 @@ module.exports = {
     }
 
     await Promise.all(
-      Wallets.associations.map(async association => {
+      Product.associations.map(async association => {
         const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
         const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 

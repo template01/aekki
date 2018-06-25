@@ -2,40 +2,40 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/soldwallets",
-      "handler": "Soldwallets.find",
+      "path": "/product",
+      "handler": "Product.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/soldwallets/:_id",
-      "handler": "Soldwallets.findOne",
+      "path": "/product/:_id",
+      "handler": "Product.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/soldwallets",
-      "handler": "Soldwallets.create",
+      "path": "/product",
+      "handler": "Product.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/soldwallets/:_id",
-      "handler": "Soldwallets.update",
+      "path": "/product/:_id",
+      "handler": "Product.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/soldwallets/:_id",
-      "handler": "Soldwallets.destroy",
+      "path": "/product/:_id",
+      "handler": "Product.destroy",
       "config": {
         "policies": []
       }

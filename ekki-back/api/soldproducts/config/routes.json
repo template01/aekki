@@ -2,40 +2,40 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/wallets",
-      "handler": "Wallets.find",
+      "path": "/soldproducts",
+      "handler": "Soldproducts.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/wallets/:_id",
-      "handler": "Wallets.findOne",
+      "path": "/soldproducts/:_id",
+      "handler": "Soldproducts.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/wallets",
-      "handler": "Wallets.create",
+      "path": "/soldproducts",
+      "handler": "Soldproducts.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/wallets/:_id",
-      "handler": "Wallets.update",
+      "path": "/soldproducts/:_id",
+      "handler": "Soldproducts.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/wallets/:_id",
-      "handler": "Wallets.destroy",
+      "path": "/soldproducts/:_id",
+      "handler": "Soldproducts.destroy",
       "config": {
         "policies": []
       }
