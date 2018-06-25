@@ -1,12 +1,12 @@
 {
-  "soldwallets": {
+  "soldproducts": {
     "attributes": {
       "test": {
         "appearance": ""
       }
     }
   },
-  "wallets": {
+  "product": {
     "attributes": {
       "Colors": {
         "appearance": ""

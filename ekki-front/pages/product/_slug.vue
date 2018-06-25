@@ -4,7 +4,7 @@
     <productcontent :baseUrl="baseUrl" :product="product"></productcontent>
 
   </div>
-
+  <cart></cart>
 </section>
 </template>
 
@@ -12,6 +12,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 import productcontent from '~/components/productcontent.vue';
+import cart from '~/components/cart.vue';
 // import {
 //   mapGetters
 // } from 'vuex'
@@ -19,7 +20,8 @@ import productcontent from '~/components/productcontent.vue';
 
 export default {
   components: {
-    productcontent
+    productcontent,
+    cart
   },
   data: function() {
     return {
@@ -79,31 +81,39 @@ export default {
       const socket = io('http://localhost:1337');
       socket.emit('item ordered', data)
     },
-
-    snipCartOpen: function() {
-      Snipcart.subscribe('cart.opened', function() {
-        console.log('Snipcart popup is visible');
-      });
-    },
-
-
-    snipOrderComplete: function() {
-      var ordered = false
-      var vm = this
-      Snipcart.subscribe('order.completed', function(data) {
-        // vm.$store.commit('order/SET_ORDERED',true)
-        console.log(data);
-        vm.emitOrderTokenServer(data.token)
-        // if(vm.ordered){
-        Snipcart.subscribe('cart.closed', function() {
-          console.log('Snipcart popup has been closed');
-          alert('Snipcart popup has been closed');
-          // vm.$store.commit('order/SET_ORDERED',false)
-          Snipcart.unsubscribe('cart.closed');
-        });
-        // }
-      });
-    },
+    //
+    // snipCartOpen: function() {
+    //
+    //   Snipcart.subscribe('cart.opened', function() {
+    //     console.log('Snipcart popup is visible');
+    //   });
+    //
+    // },
+    //
+    // snipCartClose: function(){
+    //   Snipcart.subscribe('cart.closed', function() {
+    //     console.log('Snipcart popup is visible');
+    //     Snipcart.api.items.clear()
+    //   });
+    //   // Snipcart.unsubscribe('cart.closed');
+    // },
+    //
+    //
+    // snipOrderComplete: function() {
+    //   var ordered = false
+    //   var vm = this
+    //   Snipcart.subscribe('order.completed', function(data) {
+    //     // vm.$store.commit('order/SET_ORDERED',true)
+    //     console.log(data);
+    //     vm.emitOrderTokenServer(data.token)
+    //     // if(vm.ordered){
+    //     Snipcart.subscribe('cart.closed', function() {
+    //       // vm.$store.commit('order/SET_ORDERED',false)
+    //       Snipcart.unsubscribe('cart.closed');
+    //     });
+    //     // }
+    //   });
+    // },
 
 
     setUrl: function() {
@@ -197,33 +207,33 @@ export default {
         .catch((err) => console.log('Fetch Error :-S', err));
     },
 
-    getproduct: function() {
-      var vm = this
-      fetch('http://localhost:1337/product/' + vm.$route.params.slug, {
-          method: 'get',
-        })
-        .then((res) => {
-          if (res.status !== 200) {
-            vm.sendToIndex('notexist')
-          }
-          res.json().then(function(data) {
-            vm.initiatePage = true
-            vm.product = data
-            // vm.snipCartOpen()
-            // vm.snipOrderComplete()
-            const socket = io('http://localhost:1337');
-            // socket.on('hello', (res) => console.log(res));
-
-          });
-        })
-        .catch((err) => console.log('Fetch Error :-S', err));
-    },
+    // getproduct: function() {
+    //   var vm = this
+    //   fetch('http://localhost:1337/product/' + vm.$route.params.slug, {
+    //       method: 'get',
+    //     })
+    //     .then((res) => {
+    //       if (res.status !== 200) {
+    //         vm.sendToIndex('notexist')
+    //       }
+    //       res.json().then(function(data) {
+    //         vm.initiatePage = true
+    //         vm.product = data
+    //         vm.snipCartOpen()
+    //         // vm.snipOrderComplete()
+    //         const socket = io('http://localhost:1337');
+    //         // socket.on('hello', (res) => console.log(res));
+    //
+    //       });
+    //     })
+    //     .catch((err) => console.log('Fetch Error :-S', err));
+    // },
   },
   created() {
     this.setUrl()
   },
   beforeDestroy() {
-    Snipcart.api.items.clear()
+    // Snipcart.api.items.clear()
     if (!this.isBeingViewed) {
       this.updateView(this.productviewid, false)
     }
@@ -231,6 +241,8 @@ export default {
   mounted() {
     const socket = io('http://localhost:1337');
     this.checkIfViewExist()
+    // this.snipCartOpen()
+    // this.snipCartClose()
 
   },
 

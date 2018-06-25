@@ -122,6 +122,7 @@ export default {
   computed: {
     ...mapGetters({
       menuOpen: 'menu/GET_TOGGLEMENU',
+      cartOpen: 'cart/GET_CARTOPEN',
     }),
     productcolors: function() {
       // return 'blue'
