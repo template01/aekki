@@ -62,10 +62,10 @@ module.exports = {
    */
 
   update: async(ctx, next) => {
-    let findWalletId = await Productview.findOne({
+    let findProductId = await Productview.findOne({
       '_id': ctx.params._id
     });
-    strapi.emitToAllUsers([findWalletId.viewingid, ctx.request.body.viewing]);
+    strapi.emitToAllUsers([findProductId.viewingid, ctx.request.body.viewing]);
 
 
     console.log(ctx.params)

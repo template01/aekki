@@ -4,10 +4,10 @@
   <section :style="viewingpopup.status ? {'filter':'blur(20px)'}:{}" class="">
     <div>
       <div class="grid-column">
-        <walletitemindex :link="wallet.id" :isviewing="wallet.viewing" :data="wallet" :key="wallet.id" v-for="wallet in  walletsFirstColumn"></walletitemindex>
+        <productitemindex :link="product.id" :isviewing="product.viewing" :data="product" :key="product.id" v-for="product in  productFirstColumn"></productitemindex>
       </div>
       <div class="grid-column">
-        <walletitemindex :link="wallet.id" :isviewing="wallet.viewing" :data="wallet" :key="wallet.id" v-for="wallet in  walletsSecondColumn"></walletitemindex>
+        <productitemindex :link="product.id" :isviewing="product.viewing" :data="product" :key="product.id" v-for="product in  productSecondColumn"></productitemindex>
       </div>
     </div>
   </section>
@@ -22,29 +22,29 @@ import {
 
 import _ from 'lodash';
 import viewingpopup from '~/components/viewingpopup'
-import walletitemindex from '~/components/walletitemindex'
+import productitemindex from '~/components/productitemindex'
 
 export default {
   components: {
     viewingpopup,
-    walletitemindex
+    productitemindex
   },
   computed: {
-    walletsFirstColumn: function() {
+    productFirstColumn: function() {
       // var even = function(num) {
       //   return num % 2 === 0;
       // };
-      // return this.wallets.filter(even);
+      // return this.product.filter(even);
 
       // var arr = [4,5,7,8,14,45,76];
-      var filtered = this.wallets.filter(function(element, index, array) {
+      var filtered = this.product.filter(function(element, index, array) {
         return (index % 2 === 0);
       });
       return filtered
 
     },
-    walletsSecondColumn: function() {
-      var filtered = this.wallets.filter(function(element, index, array) {
+    productSecondColumn: function() {
+      var filtered = this.product.filter(function(element, index, array) {
         return (index % 2 === 1);
       });
       return filtered
@@ -63,7 +63,7 @@ export default {
     return {
       input: 'test',
       viewing: [],
-      wallets: [],
+      product: [],
       initiatePage: false,
       testFind: ["5b08930d887ab91a3e0d19e3", "true"]
 
@@ -102,14 +102,14 @@ export default {
             vm.viewing = pickedData
             for (var i = 0, len = vm.viewing.length; i < len; i++) {
               vm.initiatePage = true
-              vm.setWalletView([vm.viewing[i].viewingid.toString(), vm.viewing[i].viewing.toString()])
+              vm.setproductView([vm.viewing[i].viewingid.toString(), vm.viewing[i].viewing.toString()])
             }
           });
           // console.log(res)
         })
         .catch((err) => console.log('Fetch Error :-S', err));
     },
-    getWallets: function() {
+    getproduct: function() {
       var vm = this
       fetch('http://localhost:1337/product', {
           method: 'get',
@@ -123,7 +123,7 @@ export default {
             //   // return _.pick(object, ['viewingid', 'rating']);
             //   return _.pick(object, ['viewingid']);
             // });
-            vm.wallets = data
+            vm.product = data
             vm.initiatePage = true
 
             vm.getInitViewing()
@@ -133,48 +133,48 @@ export default {
         })
         .catch((err) => console.log('Fetch Error :-S', err));
     },
-    setWalletSold: function(input) {
+    setproductold: function(input) {
       // console.log('xxxxxxxxxxxxxxxxxxxx' + input)
-      var item = _.find(this.wallets, function(item) {
+      var item = _.find(this.product, function(item) {
         return item.id == input;
       });
-      var index = _.indexOf(this.wallets, item);
+      var index = _.indexOf(this.product, item);
       // IF ITEM EXISTS
       if (index > -1) {
-        this.$set(this.wallets[index], 'sold', true)
+        this.$set(this.product[index], 'sold', true)
       }
     },
-    setWalletView: function(input) {
+    setproductView: function(input) {
       // console.log('xxxxxxxxxxxxxxxxxxxx' + input)
-      var item = _.find(this.wallets, function(item) {
+      var item = _.find(this.product, function(item) {
         return item.id == input[0];
       });
-      var index = _.indexOf(this.wallets, item);
+      var index = _.indexOf(this.product, item);
       // IF ITEM EXISTS
       if (index > -1) {
         if (input[1] === "true") {
-          this.$set(this.wallets[index], 'viewing', true)
+          this.$set(this.product[index], 'viewing', true)
         }
         if (input[1] === "false") {
-          this.$set(this.wallets[index], 'viewing', false)
+          this.$set(this.product[index], 'viewing', false)
         }
       }
     }
   },
 
   mounted() {
-    this.getWallets()
+    this.getproduct()
     // connect user throught socket
     const socket = io('http://localhost:1337');
     socket.on('hello', (res) => console.log(res + res + res));
 
     var vm = this
     socket.on('item set ordered', function(data) {
-      vm.setWalletSold(data.id)
+      vm.setproductold(data.id)
     });
-    socket.on('wallet_view', function(data) {
+    socket.on('product_view', function(data) {
       console.log('changexxxxxxxxxxxxxxxxxxxxxx')
-      vm.setWalletView(data)
+      vm.setproductView(data)
     });
 
     socket.on('ass', function(data) {

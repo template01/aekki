@@ -80,7 +80,7 @@ module.exports = cb => {
         // get walletid
         var id = disconnectUrl.split("/").pop()
         // emit disconnect
-        io.sockets.emit('wallet_view', [id, "false"]);
+        io.sockets.emit('product_view', [id, "false"]);
         // set db
         return strapi.services.productview.edit({
           'viewingid': id
@@ -88,7 +88,7 @@ module.exports = cb => {
           "viewing": false
         });
       }else{
-        io.sockets.emit('wallet_view', [id, "true"]);
+        io.sockets.emit('product_view', [id, "true"]);
 
       }
 
@@ -100,6 +100,6 @@ module.exports = cb => {
   });
   strapi.io = io;
   // send to all users connected
-  strapi.emitToAllUsers = view => io.emit('wallet_view', view);
+  strapi.emitToAllUsers = view => io.emit('product_view', view);
   cb();
 };

@@ -88,7 +88,7 @@ module.exports = cb => {
         // get productid
         var id = disconnectUrl.split("/").pop()
         // emit disconnect
-        io.sockets.emit('wallet_view', [id, "false"]);
+        io.sockets.emit('product_view', [id, "false"]);
         // set db
         return strapi.services.productview.edit({
           'viewingid': id
@@ -118,7 +118,7 @@ module.exports = cb => {
 
   strapi.io = io;
   // send to all users connected
-  strapi.emitToAllUsers = view => io.sockets.emit('wallet_view', view);
+  strapi.emitToAllUsers = view => io.sockets.emit('product_view', view);
   // strapi.emitSoldItemToAllUsers = view => io.sockets.emit('ass');
   strapi.emitSoldItemToAllUsers = view => io.sockets.emit('item set ordered', {
     "id": view

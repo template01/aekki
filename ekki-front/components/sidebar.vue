@@ -52,7 +52,7 @@ export default {
     return {
       input: 'test',
       viewing: [],
-      wallets: [],
+      products: [],
 
     }
   },

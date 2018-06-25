@@ -144,7 +144,7 @@ export default {
       var vm = this
       var formData = new FormData();
 
-      var file = new File([vm.imageblob], "walletimg.jpg", {
+      var file = new File([vm.imageblob], "productimg.jpg", {
         type: "image/jpeg"
       });
 

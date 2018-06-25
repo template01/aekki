@@ -23,7 +23,7 @@ export default {
     return {
       input: 'test',
       viewing: [],
-      wallets: [],
+      products: [],
       testFind: ["5b08930d887ab91a3e0d19e3", "true"]
 
     }

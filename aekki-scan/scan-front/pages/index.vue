@@ -67,7 +67,7 @@
       <div class="grid-column">
         <div class="grid-item">
           <div v-if="canstart && allfilledin">
-            <button @click="createWallet">Create Product</button>
+            <button @click="createproduct">Create Product</button>
           </div>
           <div v-if="canstart && !allfilledin">
             <span>Please fill in the above</span>
@@ -113,7 +113,7 @@
     </table>
     <div class="uploadWrapper">
       <div v-if="canstart && allfilledin">
-        <button @click="createWallet">createWallet</button>
+        <button @click="createproduct">createproduct</button>
       </div>
       <div v-if="canstart && !allfilledin">
         <span>fill in all plz</span>
@@ -229,9 +229,9 @@ export default {
       })
     },
 
-    createWallet: function() {
+    createproduct: function() {
       var vm = this
-      fetch('http://localhost:1337/wallets', {
+      fetch('http://localhost:1337/product', {
           method: 'post',
           headers: {
             "Content-type": "application/json",

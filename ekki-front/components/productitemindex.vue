@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <div v-else class="walletinfo">
+  <div v-else class="productinfo">
     <div class="textTop">
       <div class="occopied" >
         <svg :width="heightSvg" :height="heightSvg/2" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -64,7 +64,7 @@
 
   <div>
     <nuxt-link :to="isviewing ?  '' : '/product/'+link">
-      <!-- {{wallet.id}}<br> -->
+      <!-- {{product.id}}<br> -->
       <div class="inner">
         <img :src="'http://localhost:1337'+data.productimage_a.url" />
       </div>
@@ -190,7 +190,7 @@ export default {
   transform: translateY(-50%);
 }
 
-.viewinginfo, .walletinfo {
+.viewinginfo, .productinfo {
   /* background: red; */
   position: absolute;
   bottom: 0;
