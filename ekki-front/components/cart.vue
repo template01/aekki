@@ -1,6 +1,5 @@
 <template>
-  <div class="">
-
+  <div>
   </div>
 </template>
 
@@ -16,7 +15,7 @@ export default {
   computed: {
    // mix the getters into computed with object spread operator
    ...mapGetters({
-     viewingpopup: 'viewing/GET_VIEWINGPOPUP',
+    //  viewingpopup: 'viewing/GET_VIEWINGPOPUP',
    })
  },
   data: function() {
@@ -36,14 +35,16 @@ export default {
       var vm = this
       Snipcart.subscribe('cart.opened', function() {
         console.log('Snipcart popup is visible');
-        // vm.$store.commit('menu/SET_TOGGLEMENU', !vm.$store.state.menu.menuOpen)
+        vm.$store.commit('cart/SET_CARTOPEN', true)
       });
 
     },
 
     snipCartClose: function(){
+      var vm = this
       Snipcart.subscribe('cart.closed', function() {
         console.log('Snipcart popup is visible');
+        vm.$store.commit('cart/SET_CARTOPEN', false)
         Snipcart.api.items.clear()
       });
       // Snipcart.unsubscribe('cart.closed');

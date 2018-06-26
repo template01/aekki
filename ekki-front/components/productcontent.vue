@@ -13,7 +13,7 @@
                 </h1>
             </div>
           </div>
-          <div class="buyWrapper">
+          <div class="buyWrapper" :class="$store.state.cart.cartOpen ? 'expand':''">
             <div class="header">
               <h1 class="has-text-centered"> <button class="has-text-centered snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'product'+$route.params.slug" :data-item-price="product.ProductModel.price" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path"
                   data-item-description="product">
@@ -218,7 +218,8 @@ export default {
         width: 100%;
         background: white;
         transform: translateY(-100px);
-        transition: transform 0.5s;
+        transition: transform 0.5s, height 0.35s;
+        height: 100%;
 
     }
 
@@ -227,6 +228,10 @@ export default {
         animation: slidedown 0.5s forwards;
         -webkit-animation-delay: 3s;
         animation-delay: 3s;
+
+        &.expand{
+          height: 100vh;
+        }
     }
 
     .exclusiveWrapper {

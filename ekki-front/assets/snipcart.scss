@@ -1,6 +1,9 @@
-
+.snip-layout .snip-loader--bar:before{
+  background-color: black !important  ;
+}
 
 .snip-layout {
+
   max-width: calc(50% - 50px) !important;
   width: calc(50% - 50px) !important;
   font-family: inherit !important;
@@ -8,8 +11,6 @@
   right: 0 !important;
   left: auto !important;
   background: transparent !important;
-
-
   -webkit-animation-delay: 1s;
   -moz-animation-delay: 1s;
   animation-delay: 1s;
@@ -27,9 +28,54 @@
   -moz-animation-duration: 0.25s;
   animation-duration: 0.25s;
 
+  #snip-layout-cart-content {}
 
-  #snip-layout-cart-content {
+  #snipcart-header {
+    background: #efefef !important;
+    color: black !important;
+  }
+  #snipcart-main-content{
+    background: #efefef !important;
+  }
 
+  .snip-loader--bar:before{
+    background-color: black !important;
+  }
+
+  #snipcart-close {
+    // background: red;
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+    top: 0;
+    right: 0;
+
+    i {
+      width: 100%;
+      display: block;
+      position: relative;
+
+      &:after {
+         position: absolute;
+         width: 100%;
+        background: black;
+        height: 13px;
+        top: 34px;
+        display: block;
+        content: "";
+        transform: rotate(-45deg);
+      }
+      &:before {
+         position: absolute;
+         width: 100%;
+        background: black;
+        height: 13px;
+        top: 34px;
+        display: block;
+        content: "";
+        transform: rotate(45deg);
+      }
+    }
   }
 
   .snip-layout__main-container {
@@ -37,7 +83,10 @@
     height: 100%;
     max-width: 100%;
 
-    #snipcart-footer,
+    #snipcart-footer {
+      display: none;
+    }
+
     #snipcart-items-header {
       display: none;
     }
@@ -45,10 +94,11 @@
     #snipcart-header {
       height: 100px;
 
-      #snipcart-header-total,
-      #snipcart-title {
+      #snipcart-header-total {
         display: none !important;
       }
+
+      #snipcart-title {}
     }
 
     #snipcart-items-list {
@@ -65,11 +115,46 @@
           content: 'Item price: ';
         }
       }
+
+      .snip-table__item{
+        td:last-of-type{
+          display: none;
+        }
+      }
     }
   }
 
-}
+  .snip-btn{
+    background: black !important;
+    height: auto !important;
+    border: 3px solid black !important;
+  }
 
+  .snip-btn:hover{
+    background: black !important;
+  }
+
+  // #snipcart-actions{
+  .snip-btn--highlight:hover{
+    background: white !important;
+  }
+  .snip-btn--highlight{
+    color: black;
+    background: white !important;
+  }
+    #snipcart-next,#snipcart-previous{
+        width: 50% !important;
+        float: left;
+        margin: 0;
+        border-radius: 0 !important;
+    }
+    .js-next{
+      border-radius: 0 !important;
+        width: 50% !important;
+    }
+  // }
+
+}
 /* make keyframes that tell the start state and the end state of our object */
 @-webkit-keyframes fadeIn {
   from {
@@ -98,7 +183,6 @@
     opacity: 1;
   }
 }
-
 // .fade-in {
 //   opacity: 0;
 //   /* make things invisible upon start */
