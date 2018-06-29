@@ -2,7 +2,7 @@
 <div class="">
   <header>
 
-    <div :class="menuOpen? 'header-buy-slideout':''" class="header-buy">
+    <div :class="menuOpen || cartOpen ? 'header-buy-slideout':''" class="header-buy">
       <div class=" columns is-marginless is-paddingless">
 
         <div class="column buy is-paddingless ">
@@ -13,9 +13,9 @@
                 </h1>
             </div>
           </div>
-          <div class="buyWrapper" :class="$store.state.cart.cartOpen ? 'expand':''">
+          <div class="buyWrapper" >
             <div class="header">
-              <h1 class="has-text-centered"> <button class="has-text-centered snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'product'+$route.params.slug" :data-item-price="product.ProductModel.price" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path"
+              <h1 class="has-text-centered"> <button @click="openSnip()" class="has-text-centered snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'product'+$route.params.slug" :data-item-price="product.ProductModel.price" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path"
                   data-item-description="product">
                   <span class="">Claim it now: </span> <span class="">{{product.ProductModel.price}}EUR</span>
                 </button></h1>
@@ -119,6 +119,11 @@ export default {
     conceptmedia
   },
   props: ['product', 'baseUrl'],
+  methods:{
+    openSnip: function(){
+
+    }
+  },
   computed: {
     ...mapGetters({
       menuOpen: 'menu/GET_TOGGLEMENU',

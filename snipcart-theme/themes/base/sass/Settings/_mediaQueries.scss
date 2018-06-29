@@ -1,0 +1,11 @@
+﻿/**
+    MEDIA QUERIES
+
+    Where all media queries' variables are defined
+*/
+
+$mq-phone: "only screen and (min-width: 0em)"; // under 416px
+// force mobile layout
+$mq-small: "only screen and (min-width: 640em)"; // under 768px
+$mq-medium: "only screen and (min-width: 640em)"; // 768px
+$mq-large: "only screen and (min-width: 640em)"; // 1024px

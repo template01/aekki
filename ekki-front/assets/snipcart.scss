@@ -3,9 +3,11 @@
 }
 
 .snip-layout {
-
-  max-width: calc(50% - 50px) !important;
-  width: calc(50% - 50px) !important;
+  border-left: 10px solid black;
+  max-width: 400px !important;
+  width: 400px !important;
+  // max-width: calc(50% - 50px) !important;
+  // width: calc(50% - 50px) !important;
   font-family: inherit !important;
   padding: 0 !important;
   right: 0 !important;
@@ -28,14 +30,18 @@
   -moz-animation-duration: 0.25s;
   animation-duration: 0.25s;
 
+ .snip-layout__main-container{
+   background: #FFFFFF !important;
+
+ }
   #snip-layout-cart-content {}
 
   #snipcart-header {
-    background: #efefef !important;
+    background: #FFFFFF !important;
     color: black !important;
   }
   #snipcart-main-content{
-    background: #efefef !important;
+    background: #FFFFFF !important;
   }
 
   .snip-loader--bar:before{
@@ -47,6 +53,7 @@
     width: 80px;
     height: 80px;
     margin: 10px;
+    margin-top: 13px;
     top: 0;
     right: 0;
 
@@ -92,7 +99,7 @@
     }
 
     #snipcart-header {
-      height: 100px;
+      height: 110px;
 
       #snipcart-header-total {
         display: none !important;
@@ -183,18 +190,3 @@
     opacity: 1;
   }
 }
-// .fade-in {
-//   opacity: 0;
-//   /* make things invisible upon start */
-//   -webkit-animation: fadeIn ease-in 1;
-//   /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
-//   -moz-animation: fadeIn ease-in 1;
-//   animation: fadeIn ease-in 1;
-//   -webkit-animation-fill-mode: forwards;
-//   /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
-//   -moz-animation-fill-mode: forwards;
-//   animation-fill-mode: forwards;
-//   -webkit-animation-duration: 1s;
-//   -moz-animation-duration: 1s;
-//   animation-duration: 1s;
-// }

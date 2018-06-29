@@ -15,7 +15,7 @@ export default {
   computed: {
    // mix the getters into computed with object spread operator
    ...mapGetters({
-    //  viewingpopup: 'viewing/GET_VIEWINGPOPUP',
+     cartOpen: 'cart/GET_CARTOPEN',
    })
  },
   data: function() {
@@ -28,14 +28,55 @@ export default {
     }
   },
 
+
+  watch:{
+    cartOpen: function(){
+      if(!this.cartOpen){
+        Snipcart.api.modal.close()
+      }
+    }
+  },
   methods: {
 
 
     snipCartOpen: function() {
+
       var vm = this
+
       Snipcart.subscribe('cart.opened', function() {
+        setTimeout(function() {
+          window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+        },250)
         console.log('Snipcart popup is visible');
         vm.$store.commit('cart/SET_CARTOPEN', true)
+
+         $('#snipcart-header').find("#cartheader").remove()
+         $('#snipcart-header').prepend('<h2 id="cartheader">Cart</h2>')
+        // setTimeout(function(){
+        //   $('#snipcart-title').text('cart')
+        //
+        // },10)
+        // setTimeout(function(){
+        //   $('#snipcart-title').text('cart')
+        //
+        // },100)
+        // setTimeout(function(){
+        //   $('#snipcart-title').text('cart')
+        //
+        // },150)
+        // setTimeout(function(){
+        //   $('#snipcart-title').text('cart')
+        //
+        // },250)
+        // setTimeout(function(){
+        //   $('#snipcart-title').text('cart')
+        //
+        // },200)
+        // setTimeout(function(){
+        //   $('#snipcart-title').text('cart')
+        //   console.log($('#snipcart-title').text())
+        //
+        // },1000)
       });
 
     },

@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar">
-    <div  @click="$store.commit('menu/SET_TOGGLEMENU', !$store.state.menu.menuOpen)" class="navToggle">
+    <div  @click="$store.commit('menu/SET_TOGGLEMENU', !$store.state.menu.menuOpen); $store.commit('cart/SET_CARTOPEN', false)" class="navToggle">
       <div class="navHamburger">
 
         <div class="hamburger hamburger--arrow js-hamburger " :class="$store.state.menu.menuOpen ? 'is-active':''" type="button">

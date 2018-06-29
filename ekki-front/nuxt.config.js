@@ -33,12 +33,17 @@ module.exports = {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css?family=Space+Mono'
       },
+      // {
+      //   rel: 'stylesheet',
+      //   href: 'https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css'
+      // },
+      {
+        rel: 'stylesheet',
+        href: 'http://localhost:3006/themes/base/snipcart.css'
+      }
     ],
     script: [{
         src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'
-      },
-      {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js'
       }
     ],
 

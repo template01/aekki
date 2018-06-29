@@ -1,16 +1,19 @@
 <template>
 <div class="slide-layout" :class="$store.state.menu.menuOpen ? 'slide-layout-right':''">
   <sidebar></sidebar>
-  <div id="main">
+  <!-- <div id="main" class="slide-layout"> -->
+  <div id="main" class="slide-layout" :class="$store.state.cart.cartOpen ? 'slide-layout-left':''">
     <popup v-if="mountpopupwelcome"></popup>
 
 
     <nuxt/>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-
   <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MzIxNWU0MGEtN2EwNi00ZmYzLWFmYTQtMjc4YjBkMzExMWJmNjM2NjMzMDQyNDk3MzAwMzYx"></script>
-  <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
+<!--
+  <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="MzIxNWU0MGEtN2EwNi00ZmYzLWFmYTQtMjc4YjBkMzExMWJmNjM2NjMzMDQyNDk3MzAwMzYx"></script>
+   <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
+ -->
 
 </div>
 </template>
@@ -102,6 +105,11 @@ html {
 .slide-layout {
   transition: margin 0.2s ease-in-out;
   display: block;
+}
+
+.slide-layout-left {
+  margin-right: 400px;
+  margin-left: -400px;
 }
 
 .slide-layout-right {
