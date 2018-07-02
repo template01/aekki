@@ -15,8 +15,7 @@
           </div>
           <div class="buyWrapper" >
             <div class="header">
-              <h1 class="has-text-centered"> <button @click="openSnip()" class="has-text-centered snipcart-add-item" :data-item-id="$route.params.slug" :data-item-name="'product'+$route.params.slug" :data-item-price="product.ProductModel.price" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path"
-                  data-item-description="product">
+              <h1 class="has-text-centered"> <button @click="openSnip()" class="has-text-centered snipcart-add-item" :data-item-image="'http://placehold.it/200x200'" :data-item-id="$route.params.slug" :data-item-name="(product.ProductModel.title.replace(/ /g,''))+$route.params.slug" :data-item-price="product.ProductModel.price" data-item-max-quantity="1" data-item-weight="20" :data-item-url="baseUrl+$route.path" :data-item-description="product.ProductModel.title">
                   <span class="">Claim it now: </span> <span class="">{{product.ProductModel.price}}EUR</span>
                 </button></h1>
             </div>

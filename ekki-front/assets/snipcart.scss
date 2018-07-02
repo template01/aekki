@@ -1,8 +1,26 @@
-.snip-layout .snip-loader--bar:before{
-  background-color: black !important  ;
+.snip-layout .snip-loader--bar:before {
+  background-color: black !important;
+}
+
+.snip-table__cell--center.snip-table__small-col {
+  display: none !important;
+}
+
+.snip-table__cell--right.snip-table__cell--bold.snip-table__small-col {
+  display: none !important;
+}
+
+.snip-customfields {
+  display: none !important;
+}
+
+#snipcart-discounts {
+  // display: none;
+  // width: 50%;
 }
 
 .snip-layout {
+
   border-left: 10px solid black;
   max-width: 400px !important;
   width: 400px !important;
@@ -30,30 +48,53 @@
   -moz-animation-duration: 0.25s;
   animation-duration: 0.25s;
 
- .snip-layout__main-container{
-   background: #FFFFFF !important;
-
- }
+  .snip-layout__main-container {
+    background: #FFFFFF !important;
+  }
+  .snip-table{
+    td{
+      padding: 14px !important
+    }
+  }
+  #snipcart-total{
+    td{
+      float: left;
+      width: 50%;
+    }
+  }
   #snip-layout-cart-content {}
 
   #snipcart-header {
     background: #FFFFFF !important;
     color: black !important;
   }
-  #snipcart-main-content{
+
+  #snipcart-main-content {
     background: #FFFFFF !important;
   }
 
-  .snip-loader--bar:before{
+  .snip-loader--bar:before {
     background-color: black !important;
+  }
+  .snip-step__nb {
+      font-size: 24px;
+    }
+
+  .snip-step__item{
+    background: black;
+    color: white !important;
+    border: 0px !important;
+  }
+  .snip-step__item.js-active{
+    color: black !important;
+
   }
 
   #snipcart-close {
     // background: red;
     width: 80px;
     height: 80px;
-    margin: 10px;
-    margin-top: 13px;
+    margin: 13px 10px 10px;
     top: 0;
     right: 0;
 
@@ -63,8 +104,8 @@
       position: relative;
 
       &:after {
-         position: absolute;
-         width: 100%;
+        position: absolute;
+        width: 100%;
         background: black;
         height: 13px;
         top: 34px;
@@ -72,9 +113,10 @@
         content: "";
         transform: rotate(-45deg);
       }
+
       &:before {
-         position: absolute;
-         width: 100%;
+        position: absolute;
+        width: 100%;
         background: black;
         height: 13px;
         top: 34px;
@@ -83,6 +125,13 @@
         transform: rotate(45deg);
       }
     }
+  }
+
+
+  .snip-product__name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .snip-layout__main-container {
@@ -123,44 +172,97 @@
         }
       }
 
-      .snip-table__item{
-        td:last-of-type{
+      .snip-table__item {
+        td:last-of-type {
           display: none;
         }
       }
     }
   }
 
-  .snip-btn{
+  .snip-btn {
     background: black !important;
     height: auto !important;
     border: 3px solid black !important;
   }
 
-  .snip-btn:hover{
+  .snip-btn:hover {
     background: black !important;
   }
-
   // #snipcart-actions{
-  .snip-btn--highlight:hover{
+  .snip-btn--highlight:hover {
     background: white !important;
   }
-  .snip-btn--highlight{
+
+  .snip-btn--highlight {
     color: black;
     background: white !important;
   }
-    #snipcart-next,#snipcart-previous{
-        width: 50% !important;
-        float: left;
-        margin: 0;
-        border-radius: 0 !important;
-    }
-    .js-next{
-      border-radius: 0 !important;
-        width: 50% !important;
-    }
-  // }
 
+  #snipcart-next,
+  #snipcart-previous {
+    width: 50% !important;
+    float: left;
+    margin: 0;
+    border-radius: 0 !important;
+    text-align: center;
+  }
+
+  .js-next {
+    border-radius: 0 !important;
+    width: 50% !important;
+    text-align: center;
+  }
+
+  #snipcart-paymentmethod-pay {
+    width: 50%;
+    border-radius: 0;
+    margin-left: 0;
+    text-align: center;
+  }
+  .snip-actions{
+    .js-back.snip-btn.snip-btn--left,.js-submit.snip-btn.snip-btn--highlight.snip-btn--right{
+      width: 50%;
+      border-radius: 0;
+      margin-left: 0;
+      text-align: center;
+    }
+  }
+  // }
+  .snip-actions {
+    input[type="submit"] {
+      display: none;
+    }
+  }
+
+  #snipcart-sub-content {
+    .js-next {
+      width: 100% !important;
+    }
+  }
+
+  #snipcart-apply-discount {
+    .snip-btn.snip-btn--right {
+      border-radius: 0;
+      width: 100%;
+    }
+
+    .snip-form--discount {
+      width: 100%;
+      margin-top: 5px;
+      max-width: 100%;
+      margin-right: 0;
+    }
+  }
+  // #snipcart-billingaddress-form{
+  .snip-cols.snip-layout__content {
+    // padding-bottom: 0 !important;
+    .snip-col {
+      padding-bottom: 0;
+      border-top: 0;
+    }
+  }
+  // }
 }
 /* make keyframes that tell the start state and the end state of our object */
 @-webkit-keyframes fadeIn {

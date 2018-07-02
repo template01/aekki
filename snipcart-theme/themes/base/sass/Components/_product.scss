@@ -46,7 +46,7 @@ $_product-disabled-opacity: 0.2;
 }
 
 .snip-product__thumbnail {
-    display: none;
+    // display: none;
     float: left;
     height: $_product-thumbnail-size;
     margin-right: .714em;
@@ -66,9 +66,10 @@ $_product-disabled-opacity: 0.2;
     @include font-bold;
     color: palette(product, color--highlight);
     font-size: 1.125em;
-    overflow: hidden;
     text-transform: uppercase;
-
+    white-space: nowrap !important;
+     overflow: hidden !important;
+     text-overflow: ellipsis !important;
     @media #{$mq-medium} {
         font-size: fontsize(product, base);
         margin-top: .5em;

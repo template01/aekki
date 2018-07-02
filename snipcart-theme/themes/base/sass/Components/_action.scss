@@ -20,6 +20,7 @@ $_action-pad: 20px;
 .snip-actions {
     // border-top: $_action-border;
     padding: $padding-small;
+    
 
     // [1]
     @include clearfix;

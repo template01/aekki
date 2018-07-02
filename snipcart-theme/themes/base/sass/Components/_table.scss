@@ -37,7 +37,7 @@ $_notice-error--text-color: palette(static, color--highlight);
 
         &.snip-table__row--no-border {
           border-bottom: none;
-          td {
+          td {c
             border-bottom: 0;
           }
         }
@@ -46,7 +46,7 @@ $_notice-error--text-color: palette(static, color--highlight);
     td{
       text-align: left;
       display: block;
-      padding: 24px;
+      padding: 10px !important;
       border-bottom: 0px;
     }
 }
@@ -133,7 +133,7 @@ $_notice-error--text-color: palette(static, color--highlight);
 
             tr,
             td {
-                padding: .5em;
+                // padding: .5em;
                 text-align: inherit;
             }
         }
@@ -154,7 +154,7 @@ $_notice-error--text-color: palette(static, color--highlight);
     border-top: $_table-border;
     display: table-row-group;
     // padding: 1.429em;
-    padding: 24px;
+    // padding: 24px;
 }
 
 .snip-table__body--small {

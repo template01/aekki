@@ -10,7 +10,7 @@
     LOCAL VARIABLES
 \*------------------------------------*/
 
-$_steps-height: 60px;
+$_steps-height: 40px;
 
 $_steps-border: 1px solid palette(step, border);
 
@@ -46,7 +46,7 @@ $_steps-border: 1px solid palette(step, border);
 }
 
 .snip-step__item {
-    background: palette(step, background);
+    background: red !important;
     border-bottom: $_steps-border;
     color: palette(step, color);
     cursor: pointer;
@@ -83,7 +83,7 @@ $_steps-border: 1px solid palette(step, border);
 
 .snip-step__nb {
     display: table-cell;
-    font-size: fontsize(step, icon) / 1.25;
+    font-size: 24px;
     padding: 0 .25em;
     text-align: center;
     vertical-align: middle;

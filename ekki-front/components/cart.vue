@@ -115,6 +115,7 @@ export default {
   },
 
   mounted() {
+    Snipcart.api.items.clear()
     this.snipCartOpen()
     this.snipCartClose()
 
@@ -122,5 +123,8 @@ export default {
 }
 </script>
 <style>
+.snip-header{
+  overflow: hidden
+}
 
 </style>
