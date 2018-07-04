@@ -5,7 +5,7 @@
   <div id="main" class="slide-layout" :class="$store.state.cart.cartOpen ? 'slide-layout-left':''">
     <popup v-if="mountpopupwelcome"></popup>
 
-
+    {{$store.state.rootApi}}
     <nuxt/>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
@@ -56,7 +56,6 @@ export default {
     }
   },
   mounted() {
-
     this.checkPopupCookie()
 
 

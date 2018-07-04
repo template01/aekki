@@ -61,6 +61,9 @@ module.exports = {
   },
   // loading: false,
   // plugins: ['~/plugins/markdownparser'],
+  env: {
+      baseUrl: process.env.BASE_URL || 'http://localhost:3002',
+    },
 
   router: {
     middleware: 'collapseMenu'
