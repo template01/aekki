@@ -62,7 +62,7 @@ module.exports = {
   // loading: false,
   // plugins: ['~/plugins/markdownparser'],
   env: {
-      baseUrl: process.env.BASE_URL || 'http://localhost:3002',
+      baseUrl: process.env.BASE_URL,
     },
 
   router: {
@@ -80,6 +80,7 @@ module.exports = {
       isDev,
       isClient
     }) {
+
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',

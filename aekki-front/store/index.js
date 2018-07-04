@@ -30,12 +30,9 @@ export const mutations = {
 export const actions = {
   // ONLY WORKS IN INDEX JS - THIS WILL SET/COMMIT THE COUPLED MODULES
 
-  async nuxtServerInit({
-    commit,store,dispatch,state
-  },{req}) {
+  async nuxtServerInit({store,state,context,commit}) {
     commit('SET_GLOBALROOTAPI',process.env.baseUrl)
-    console.log(req.headers.host)
-    // console.log(req)
+    console.log(context)
 
         // {{process.env.baseUrl}}
 
