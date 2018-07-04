@@ -33,9 +33,11 @@ export const actions = {
   async nuxtServerInit({
     commit,store,dispatch,state
   },{req}) {
-    commit('SET_GLOBALROOTAPI',req.headers.host)
+    commit('SET_GLOBALROOTAPI',process.env.baseUrl)
     console.log(req.headers.host)
     // console.log(req)
+
+        // {{process.env.baseUrl}}
 
     const { data } = await axios.get(state.rootApi+'/productview')
     commit('viewing/SET_ROOTAPI',state.rootApi)
