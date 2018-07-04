@@ -78,7 +78,7 @@ export default {
   methods: {
 
     emitOrderTokenServer: function(data) {
-      const socket = io('http://localhost:1337');
+      const socket = io(this.$store.state.rootApi);
       socket.emit('item ordered', data)
     },
     //
@@ -124,7 +124,7 @@ export default {
 
     checkIfViewExist: function() {
       var vm = this
-      fetch('http://localhost:1337/productview?viewingid=' + this.$route.params.slug, {
+      fetch(this.$store.state.rootApi+'/productview?viewingid=' + this.$route.params.slug, {
           method: 'get'
         })
         .then((res) => {
@@ -172,7 +172,7 @@ export default {
     },
     updateView: function(id, state) {
       console.log('send')
-      fetch('http://localhost:1337/productview/' + id, {
+      fetch(this.$store.state.rootApi+'/productview/' + id, {
           method: 'put',
           headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -190,7 +190,7 @@ export default {
 
     createView: function() {
       var vm = this
-      fetch('http://localhost:1337/productview', {
+      fetch(this.$store.state.rootApi+'/productview', {
           method: 'post',
           headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -239,17 +239,16 @@ export default {
     }
   },
   mounted() {
-    const socket = io('http://localhost:1337');
+    const socket = io(this.$store.state.rootApi);
     this.checkIfViewExist()
-    // this.snipCartOpen()
-    // this.snipCartClose()
 
   },
 
   asyncData(context) {
-    console.log(context.route)
+    // console.log(context.route)
+    console.log(context.store.state.rootApi)
 
-    return axios.get('http://localhost:1337/product/' + context.route.params.slug)
+    return axios.get(context.store.state.rootApi+'/product/' + context.route.params.slug)
       .then((res) => {
         return {
           ass: 'testa',

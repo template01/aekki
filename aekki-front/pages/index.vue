@@ -72,7 +72,7 @@ export default {
   methods: {
 
     sendView: function() {
-      fetch('http://localhost:1337/productview', {
+      fetch(this.$store.state.rootApi+'productview', {
           method: 'post',
           headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -87,7 +87,7 @@ export default {
     },
     getInitViewing: function() {
       var vm = this
-      fetch('http://localhost:1337/productview', {
+      fetch(vm.$store.state.rootApi+'/productview', {
           method: 'get',
         })
         .then((res) => {
@@ -111,7 +111,7 @@ export default {
     },
     getproduct: function() {
       var vm = this
-      fetch('http://localhost:1337/product', {
+      fetch(this.$store.state.rootApi+'/product', {
           method: 'get',
         })
         .then((res) => {
@@ -165,7 +165,7 @@ export default {
   mounted() {
     this.getproduct()
     // connect user throught socket
-    const socket = io('http://localhost:1337');
+    const socket = io(this.$store.state.rootApi);
     socket.on('hello', (res) => console.log(res + res + res));
 
     var vm = this

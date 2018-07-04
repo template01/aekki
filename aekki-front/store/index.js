@@ -16,6 +16,7 @@ export const mutations = {
     state.test = url
     if(url === 'localhost:3002'){
       state.rootApi = 'http://aekki-api.parkedthis.space'
+      // state.rootApi = 'http://localhost:1337'
     }
     if(url === 'aekki.parkedthis.space'){
       state.rootApi = 'http://aekki-api.parkedthis.space'
@@ -34,7 +35,7 @@ export const actions = {
   },{req}) {
     commit('SET_GLOBALROOTAPI',req.headers.host)
     console.log(req.headers.host)
-    console.log(req)
+    // console.log(req)
 
     const { data } = await axios.get(state.rootApi+'/productview')
     commit('viewing/SET_ROOTAPI',state.rootApi)

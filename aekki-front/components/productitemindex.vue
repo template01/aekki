@@ -66,7 +66,7 @@
     <nuxt-link :to="isviewing ?  '' : '/product/'+link">
       <!-- {{product.id}}<br> -->
       <div class="inner">
-        <img :src="'http://localhost:1337'+data.productimage_a.url" />
+        <img :src="$store.state.rootApi+data.productimage_a.url" />
       </div>
       <!-- <br> -->
     </nuxt-link>

@@ -39,14 +39,14 @@
 
     <div class="product-scans columns is-marginless">
       <div v-if="product.productimage_a" class="column">
-        <img :src="'http://localhost:1337'+product.productimage_a.url" />
+        <img :src="$store.state.rootApi+product.productimage_a.url" />
         <div class="header">
           <h1 class="has-text-centered">Side A</h1>
         </div>
       </div>
       <div v-if="product.productimage_b" class="column">
 
-        <img :src="'http://localhost:1337'+product.productimage_b.url" />
+        <img :src="$store.state.rootApi+product.productimage_b.url" />
         <div class="header">
           <h1 class="has-text-centered">Side B</h1>
         </div>

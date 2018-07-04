@@ -4,9 +4,6 @@
   <!-- <div id="main" class="slide-layout"> -->
   <div id="main" class="slide-layout" :class="$store.state.cart.cartOpen ? 'slide-layout-left':''">
     <popup v-if="mountpopupwelcome"></popup>
-    {{$route.fullPath}}
-    <!-- {{window.location.href}} -->
-    {{$store.state.test}}
     <nuxt/>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
