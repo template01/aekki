@@ -1,3 +1,5 @@
+const env = require('./location.env');
+
 module.exports = {
   /*
    ** Headers of the page
@@ -62,7 +64,7 @@ module.exports = {
   // loading: false,
   // plugins: ['~/plugins/markdownparser'],
   env: {
-      baseUrl: process.env.BASE_URL,
+      baseUrl: env.apiRoot,
     },
 
   router: {
