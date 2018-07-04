@@ -2,7 +2,8 @@ import axios from 'axios'
 
 
 export const state = () => ({
-  rootApi: 'http://localhost:1337',
+  rootApi: 'http://aekki-api.parkedthis.space',
+  dev_rootApi: 'http://localhost:1337',
   test: '',
 })
 
@@ -16,7 +17,6 @@ export const mutations = {
     state.test = url
     if(url === 'localhost:3002'){
       state.rootApi = 'http://aekki-api.parkedthis.space'
-      // state.rootApi = 'http://localhost:1337'
     }
     if(url === 'aekki.parkedthis.space'){
       state.rootApi = 'http://aekki-api.parkedthis.space'
@@ -30,11 +30,15 @@ export const mutations = {
 export const actions = {
   // ONLY WORKS IN INDEX JS - THIS WILL SET/COMMIT THE COUPLED MODULES
 
-  async nuxtServerInit({store,state,context,commit}) {
-    commit('SET_GLOBALROOTAPI',process.env.baseUrl)
-    console.log(context)
+  async nuxtServerInit({
+    commit,store,dispatch,state
+  },{req}) {
+    commit('SET_GLOBALROOTAPI',req.headers.host)
+    console.log(req.headers.host)
 
-        // {{process.env.baseUrl}}
+    let host = req ? req.headers.host : window.location.host.split(':')[0]
+
+    console.log(host)
 
     const { data } = await axios.get(state.rootApi+'/productview')
     commit('viewing/SET_ROOTAPI',state.rootApi)
