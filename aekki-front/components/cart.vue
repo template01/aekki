@@ -94,8 +94,8 @@ export default {
     var vm = this
     setTimeout(function(){
       Snipcart.api.items.clear()
-      this.snipCartOpen()
-      this.snipCartClose()
+      vm.snipCartOpen()
+      vm.snipCartClose()
     },500)
 
   },
