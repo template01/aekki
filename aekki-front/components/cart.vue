@@ -87,13 +87,16 @@ export default {
 
   },
   beforeDestroy() {
-    // Snipcart.api.items.clear()
+    Snipcart.api.items.clear()
   },
 
   mounted() {
-    // Snipcart.api.items.clear()
-    // this.snipCartOpen()
-    // this.snipCartClose()
+    var vm = this
+    setTimeout(function(){
+      Snipcart.api.items.clear()
+      this.snipCartOpen()
+      this.snipCartClose()
+    },500)
 
   },
 }
