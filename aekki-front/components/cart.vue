@@ -52,31 +52,7 @@ export default {
 
          $('#snipcart-header').find("#cartheader").remove()
          $('#snipcart-header').prepend('<h2 id="cartheader">Cart</h2>')
-        // setTimeout(function(){
-        //   $('#snipcart-title').text('cart')
-        //
-        // },10)
-        // setTimeout(function(){
-        //   $('#snipcart-title').text('cart')
-        //
-        // },100)
-        // setTimeout(function(){
-        //   $('#snipcart-title').text('cart')
-        //
-        // },150)
-        // setTimeout(function(){
-        //   $('#snipcart-title').text('cart')
-        //
-        // },250)
-        // setTimeout(function(){
-        //   $('#snipcart-title').text('cart')
-        //
-        // },200)
-        // setTimeout(function(){
-        //   $('#snipcart-title').text('cart')
-        //   console.log($('#snipcart-title').text())
-        //
-        // },1000)
+
       });
 
     },
@@ -111,13 +87,13 @@ export default {
 
   },
   beforeDestroy() {
-    Snipcart.api.items.clear()
+    // Snipcart.api.items.clear()
   },
 
   mounted() {
-    Snipcart.api.items.clear()
-    this.snipCartOpen()
-    this.snipCartClose()
+    // Snipcart.api.items.clear()
+    // this.snipCartOpen()
+    // this.snipCartClose()
 
   },
 }
