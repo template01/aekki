@@ -1,6 +1,6 @@
 <template>
-  <div>
-  </div>
+<div>
+</div>
 </template>
 
 <script>
@@ -13,11 +13,11 @@ import {
 export default {
   components: {},
   computed: {
-   // mix the getters into computed with object spread operator
-   ...mapGetters({
-     cartOpen: 'cart/GET_CARTOPEN',
-   })
- },
+    // mix the getters into computed with object spread operator
+    ...mapGetters({
+      cartOpen: 'cart/GET_CARTOPEN',
+    })
+  },
   data: function() {
     return {
       input: 'test',
@@ -29,47 +29,71 @@ export default {
   },
 
 
-  watch:{
-    cartOpen: function(){
-      if(!this.cartOpen){
+  watch: {
+    cartOpen: function() {
+      if (!this.cartOpen) {
         Snipcart.api.modal.close()
       }
     }
   },
   methods: {
 
+    checkIfUserLoggedIn: function() {
+
+      if (Snipcart.api.user.current() != null) {
+        // your code here.
+
+        $('#snipcart-close').css({'top':'42px'})
+
+      }
+    },
 
     snipCartOpen: function() {
 
       var vm = this
 
+
       Snipcart.subscribe('cart.opened', function() {
         setTimeout(function() {
-          window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-        },250)
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
+        }, 250)
         console.log('Snipcart popup is visible');
         vm.$store.commit('cart/SET_CARTOPEN', true)
+        vm.$store.commit('menu/SET_TOGGLEMENU', false);
 
-         $('#snipcart-header').find("#cartheader").remove()
-         $('#snipcart-header').prepend('<h2 id="cartheader">Cart</h2>')
+        $('#snipcart-header').find("#cartheader").remove()
+        $('#snipcart-header').prepend('<h2 id="cartheader">Cart</h2>')
+        vm.checkIfUserLoggedIn()
 
       });
 
-      Snipcart.subscribe('page.changed', function (page) {
-          if(page === 'shipping-method'){
-            $("#snipcart-shippings-list").append($('.snip-pickup-in-rotterdam'))
-            $("#snipcart-shippings-list").append($('.snip-bundle-with-previous-order-previous-order-must-have-been-placed-today'))
-            $("#snipcart-shippings-list").find('.js-selected').removeClass('js-selected')
-            $("#snipcart-shippings-list").find('.snip-product--selectable-item').first().trigger( "click" );
-          }
+      Snipcart.subscribe('page.changed', function(page) {
+        if (page === 'shipping-method') {
+          $("#snipcart-shippings-list").append($('.snip-pickup-in-rotterdam'))
+          $("#snipcart-shippings-list").append($('.snip-bundle-with-previous-order-previous-order-must-have-been-placed-today'))
+          $("#snipcart-shippings-list").find('.js-selected').removeClass('js-selected')
+          $("#snipcart-shippings-list").find('.snip-product--selectable-item').first().trigger("click");
+        }
+        if (page === 'customer/orders-history') {
+          $('#snipcart-header').find("#cartheader").remove()
+          $('#snipcart-header').prepend('<h3 id="cartheader">Orders</h3>')
+        }
+        if (page === 'customer/profile'){
+          $('#snipcart-header').find("#cartheader").remove()
+          $('#snipcart-header').prepend('<h3 id="cartheader">Profile</h3>')
+        }
+        console.log(page)
       });
 
     },
 
-    snipCartClose: function(){
+    snipCartClose: function() {
       var vm = this
       Snipcart.subscribe('cart.closed', function() {
-        console.log('Snipcart popup is visible');
         vm.$store.commit('cart/SET_CARTOPEN', false)
         Snipcart.api.items.clear()
       });
@@ -101,18 +125,29 @@ export default {
 
   mounted() {
     var vm = this
-    setTimeout(function(){
+    this.$router.replace({ hash: '' })
+    setTimeout(function() {
       Snipcart.api.items.clear()
       vm.snipCartOpen()
       vm.snipCartClose()
-    },500)
+    }, 500)
 
   },
+
+  watch: {
+    'cartOpen': function() {
+      if (this.cartOpen) {
+        document.documentElement.style.overflowY = "hidden";
+      } else {
+        document.documentElement.style.overflowY = "scroll";
+        Snipcart.api.modal.close();
+      }
+    }
+  }
 }
 </script>
 <style>
-.snip-header{
+.snip-header {
   overflow: hidden
 }
-
 </style>

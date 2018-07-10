@@ -103,6 +103,13 @@ export default {
       }
       return model
     },
+     ...mapGetters({
+       windowWidth: 'GET_WINDOWWIDTH',
+     }),
+
+    height: function(){
+      return this.windowWidth/2-50+'px'
+    },
     heightParsed: function() {
       return parseInt(this.height, 10)
     },
@@ -121,11 +128,11 @@ export default {
   props: ['link', 'isviewing', 'data'],
   data: function() {
     return {
-      height: '39.5vw',
+      // height: '39.5vw',
     }
   },
   mounted() {
-    this.setHeight()
+    // this.setHeight()
   },
 
   methods: {
@@ -143,8 +150,9 @@ export default {
     },
     setHeight: function() {
       if (process.browser) {
-        this.height = this.$el.offsetWidth + 'px'
-        var vm = this
+        this.height=this.$store.state.windowWidth+'px'
+        // this.height = this.$el.offsetWidth + 'px'
+        // var vm = this
         // setTimeout(function(){vm.setTextCircle(vm.$el.offsetWidth)},250)
 
       }

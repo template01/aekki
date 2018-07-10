@@ -1,3 +1,18 @@
+#snipcart-orders-history-container{
+  .snip-table__body{
+    tr{
+      margin-bottom: 20px !important;
+      display: block;
+      width: 100%;
+      td{
+        padding-bottom: 0 !important;
+        padding-top: 0 !important;
+      }
+    }
+  }
+}
+
+
 .snip-table__header {
   display: none !important;
 }
@@ -129,6 +144,7 @@
   }
 
   #snipcart-total {
+    line-height: 1;
     td {
       float: left;
       width: 50%;
@@ -222,6 +238,12 @@
 
     #snipcart-header {
       height: 110px;
+
+      h3{
+        font-size: 70px;
+        font-weight: bold;
+        line-height: 80px;
+      }
 
       #snipcart-header-total {
         display: none !important;

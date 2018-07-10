@@ -1,8 +1,9 @@
 <template>
 <div class="slide-layout" :class="$store.state.menu.menuOpen ? 'slide-layout-right':''">
-  <sidebar></sidebar>
+  <sidebar ></sidebar>
+  <cart></cart>
   <!-- <div id="main" class="slide-layout"> -->
-  <div id="main" class="slide-layout" :class="$store.state.cart.cartOpen ? 'slide-layout-left':''">
+  <div id="main" class="slide-layout" :class="$store.state.cart.cartOpen ? 'slide-layout-left':''" @click="$store.commit('cart/SET_CARTOPEN', false)">
     <popup v-if="mountpopupwelcome"></popup>
 
     <nuxt/>
@@ -19,10 +20,14 @@
 <script>
 import sidebar from '~/components/sidebar.vue'
 import popup from '~/components/popup.vue'
+import cart from '~/components/cart.vue';
+
 export default {
   components: {
     sidebar,
-    popup
+    popup,
+    cart
+    
   },
   data: function() {
     return {

@@ -2,7 +2,8 @@
 <div v-if="initiatePage">
   <viewingpopup></viewingpopup>
   <section :style="viewingpopup.status ? {'filter':'blur(20px)'}:{}" class="">
-    <div>
+    <div class="circleWrapper" :class="!isresizing ? 'visible':'invisible'">
+    <!-- <div> -->
       <div class="grid-column">
         <productitemindex :link="product.id" :isviewing="product.viewing" :data="product" :key="product.id" v-for="product in  productFirstColumn"></productitemindex>
       </div>
@@ -54,6 +55,7 @@ export default {
     // mix the getters into computed with object spread operator
     ...mapGetters({
       viewingpopup: 'viewing/GET_VIEWINGPOPUP',
+      isresizing: 'GET_WINDOWRESIZING',
     })
   },
   methods: {
@@ -185,7 +187,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
-
+.circleWrapper{
+  opacity: 0;
+  transition: all 0.05s;
+  &.visible{
+    opacity: 1;
+  }
+  &.invisible{
+    opacity:0;
+  }
+}
 </style>

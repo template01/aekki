@@ -62,7 +62,7 @@ module.exports = {
     height: '100px'
   },
   // loading: false,
-  // plugins: ['~/plugins/markdownparser'],
+  plugins: [{ src: '~/plugins/resizer.js', ssr: false }],
   env: {
       baseUrl: env.apiRoot,
     },

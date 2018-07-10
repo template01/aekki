@@ -4,7 +4,7 @@
     <productcontent :baseUrl="baseUrl" :product="product"></productcontent>
 
   </div>
-  <cart></cart>
+  <!-- <cart></cart> -->
 </section>
 </template>
 
@@ -12,7 +12,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 import productcontent from '~/components/productcontent.vue';
-import cart from '~/components/cart.vue';
+// import cart from '~/components/cart.vue';
 // import {
 //   mapGetters
 // } from 'vuex'
@@ -21,7 +21,7 @@ import cart from '~/components/cart.vue';
 export default {
   components: {
     productcontent,
-    cart
+    // cart
   },
   data: function() {
     return {
