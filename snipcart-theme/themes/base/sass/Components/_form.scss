@@ -37,7 +37,7 @@ $_form-border: 1px solid palette(form, border);
     clear: left;
 
     + .snip-form__container {
-        margin-top: 1em;
+        margin-top:5px;
     }
 }
 
@@ -45,7 +45,8 @@ $_form-border: 1px solid palette(form, border);
     color: palette(form, label-color);
     display: block;
     font-size: fontsize(form, small);
-    margin: 0 0 .5em 0;
+    margin: 0 0 1px 0;
+    // margin: 0 0 .5em 0;
     overflow: hidden;
     text-transform: uppercase;
     cursor: pointer;

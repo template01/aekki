@@ -55,6 +55,15 @@ export default {
 
       });
 
+      Snipcart.subscribe('page.changed', function (page) {
+          if(page === 'shipping-method'){
+            $("#snipcart-shippings-list").append($('.snip-pickup-in-rotterdam'))
+            $("#snipcart-shippings-list").append($('.snip-bundle-with-previous-order-previous-order-must-have-been-placed-today'))
+            $("#snipcart-shippings-list").find('.js-selected').removeClass('js-selected')
+            $("#snipcart-shippings-list").find('.snip-product--selectable-item').first().trigger( "click" );
+          }
+      });
+
     },
 
     snipCartClose: function(){
