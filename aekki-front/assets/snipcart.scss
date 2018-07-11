@@ -1,10 +1,11 @@
-#snipcart-orders-history-container{
-  .snip-table__body{
-    tr{
+#snipcart-orders-history-container {
+  .snip-table__body {
+    tr {
       margin-bottom: 20px !important;
       display: block;
       width: 100%;
-      td{
+
+      td {
         padding-bottom: 0 !important;
         padding-top: 0 !important;
       }
@@ -12,76 +13,97 @@
   }
 }
 
+#snipcart-steps {
+}
 
 .snip-table__header {
   display: none !important;
 }
-.snip-actions{
+
+.snip-actions {
   // padding-bottom: 0 !important;
   padding-top: 0 !important;
 }
 
-.snip-layout #snipcart-apply-discount .snip-form--discount  {
-    width: 100%;
-    margin-top: 0px !important;
-    max-width: 100%;
-    margin-right: 0;
+.snip-layout #snipcart-apply-discount .snip-form--discount {
+  width: 100%;
+  margin-top: 0 !important;
+  max-width: 100%;
+  margin-right: 0;
 }
-#snipcart-discounts-code{
+
+#snipcart-discounts-code {
   height: 36px;
   line-height: 36px;
-  border-right:3px;
-  border-left:3px;
-  border-top:0px;
-  border-bottom:3px;
+  border-right: 3px;
+  border-left: 3px;
+  border-top: 0;
+  border-bottom: 3px;
   border-radius: 0;
   border-color: black;
   border-style: solid;
 }
-.snip-layout .snip-form__error{
-    border-radius: 0 !important;
-    height: 42px;
-    line-height: 32px;
+
+.snip-layout .snip-form__error {
+  border-radius: 0 !important;
+  height: 42px;
+  line-height: 32px;
 }
 
-#snipcart-show-discount-box{
+#snipcart-show-discount-box {
   text-align: center;
-    width: 100%;
-    display: block;
-    border:3px solid black !important;
-    height: 42px;
-    line-height: 36px;
-    background: black;
-    color: white;
+  width: 100%;
+  display: block;
+  border: 3px solid black !important;
+  height: 42px;
+  line-height: 36px;
+  background: black;
+  color: white;
 }
-#snipcart-cart-content{
-  #snipcart-upcoming-payments{
-    display: none !important;
 
-  }
-  #snipcart-discounts{
+#snipcart-cart-content {
+  #snipcart-upcoming-payments {
     display: none !important;
   }
-}
-#snipcart-fees{
-  td:not(:last-of-type){
-    padding-bottom: 0px !important;
+
+  #snipcart-discounts {
+    display: none !important;
   }
 }
 
-#snipcart-shippings-list{
-  h2{
+#snipcart-fees {
+  td:not(:last-of-type) {
+    padding-bottom: 0 !important;
+  }
+}
+
+#snipcart-shippings-list {
+  min-height: 46px !important;
+  h2 {
     white-space: normal !important;
   }
-  tr{
-    td:nth-of-type(1){
+
+  tr {
+    td:nth-of-type(1) {
       padding-bottom: 0 !important;
     }
-    td:nth-of-type(2){
+
+    td:nth-of-type(2) {
       padding-top: 2px !important;
       margin-left: 30px;
     }
+
   }
+
+      .addressWrapper {
+        margin-top: -14px;
+        padding-top: 0px !important;
+        margin-left: 30px;
+      }
+      .address {
+        color:#999;
+      }
+
 }
 
 .snip-layout .snip-loader--bar:before {
@@ -145,6 +167,7 @@
 
   #snipcart-total {
     line-height: 1;
+
     td {
       float: left;
       width: 50%;
@@ -239,7 +262,7 @@
     #snipcart-header {
       height: 110px;
 
-      h3{
+      h3 {
         font-size: 70px;
         font-weight: bold;
         line-height: 80px;
@@ -262,6 +285,11 @@
       }
 
       span[data-bind="totalPrice"] {
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        margin-top: -14px;
+        display: block;
+
         &::before {
           content: 'Item price: ';
         }

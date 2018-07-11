@@ -42,10 +42,23 @@ export default {
 
       if (Snipcart.api.user.current() != null) {
         // your code here.
+        $('#snipcart-close').css({
+          'top': '42px'
+        })
 
-        $('#snipcart-close').css({'top':'42px'})
-
+      }else{
+        $('#snipcart-close').css({
+          'top': '0px'
+        })
       }
+    },
+
+    snipCartLogOutEvent: function() {
+      var vm = this
+      Snipcart.subscribe('user.loggedout', function() {
+        vm.$store.commit('cart/SET_CARTOPEN', false)
+        vm.$store.commit('menu/SET_TOGGLEMENU', false);
+      });
     },
 
     snipCartOpen: function() {
@@ -66,15 +79,25 @@ export default {
         vm.$store.commit('menu/SET_TOGGLEMENU', false);
 
         $('#snipcart-header').find("#cartheader").remove()
-        $('#snipcart-header').prepend('<h2 id="cartheader">Cart</h2>')
+        $('#snipcart-header').prepend('<h2 id="cartheader">Claim</h2>')
         vm.checkIfUserLoggedIn()
 
       });
 
+
+
       Snipcart.subscribe('page.changed', function(page) {
+
+        if (page === 'cart-content') {
+          $("#snipcart-steps").show()
+        }
         if (page === 'shipping-method') {
           $("#snipcart-shippings-list").append($('.snip-pickup-in-rotterdam'))
+          $("#snipcart-shippings-list").find('.snip-pickup-in-rotterdam').parent().after().append(
+            '<td class="addressWrapper snip-table__cell--right snip-table__cell--highlight"><p class="address snip-product__important">Schedule a pickup? Just write <a href="mailto:PICKUP@AEKKI.NL?Subject=PRODUCT PICKUP" target="_top">PICKUP@AEKKI.NL</a></p></td>'
+          )
           $("#snipcart-shippings-list").append($('.snip-bundle-with-previous-order-previous-order-must-have-been-placed-today'))
+
           $("#snipcart-shippings-list").find('.js-selected').removeClass('js-selected')
           $("#snipcart-shippings-list").find('.snip-product--selectable-item').first().trigger("click");
         }
@@ -82,9 +105,22 @@ export default {
           $('#snipcart-header').find("#cartheader").remove()
           $('#snipcart-header').prepend('<h3 id="cartheader">Orders</h3>')
         }
-        if (page === 'customer/profile'){
+        if (page === 'customer/profile') {
           $('#snipcart-header').find("#cartheader").remove()
           $('#snipcart-header').prepend('<h3 id="cartheader">Profile</h3>')
+        }
+        if (page === 'login') {
+          $('#snipcart-header').find("#cartheader").remove()
+          $('#snipcart-header').prepend('<h3 id="cartheader">Login</h3>')
+          $('#snipcart-close').css({
+            'top': '0px'
+          })
+
+        }
+        if (page != 'login') {
+          console.log('not LOGIN')
+          vm.checkIfUserLoggedIn()
+          // alert('not login')
         }
         console.log(page)
       });
@@ -125,11 +161,14 @@ export default {
 
   mounted() {
     var vm = this
-    this.$router.replace({ hash: '' })
+    this.$router.replace({
+      hash: ''
+    })
     setTimeout(function() {
       Snipcart.api.items.clear()
       vm.snipCartOpen()
       vm.snipCartClose()
+      vm.snipCartLogOutEvent()
     }, 500)
 
   },

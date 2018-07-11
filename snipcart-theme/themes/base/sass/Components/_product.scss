@@ -50,7 +50,8 @@ $_product-disabled-opacity: 0.2;
 .snip-product__thumbnail {
     // display: none;
     float: left;
-    height: $_product-thumbnail-size;
+    // height: $_product-thumbnail-size;
+    height: auto;
     margin-right: .714em;
     width: $_product-thumbnail-size;
 

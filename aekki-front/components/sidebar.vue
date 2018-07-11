@@ -25,13 +25,19 @@
         <nuxt-link :to="'/about'"><span class="circleNav"></span>About</nuxt-link>
       </p>
       <div class="smalltextBottom is-size-7">
-        <p>
-
+        <p class="pb-20">
+          <a href="#" class="snipcart-edit-profile">
+            Profile
+          </a>
+          /
           <a href="#" class="snipcart-user-profile">
-  User profile
-</a>
-        </p>
+           Orders&nbsp;
+          </a>
 
+          <a href="#" class="snipcart-user-logout">
+            / Logout
+          </a>
+        </p>
         <p>
           <nuxt-link :to="'/info'"><span class="circleNav"></span>Info / Terms / Conditions </nuxt-link>
         </p>
