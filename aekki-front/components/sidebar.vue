@@ -15,16 +15,16 @@
   <div class="navInner">
     <nav>
       <!-- <nuxt-link :to="'/'"><img width="100%" src="/logow.svg"/></nuxt-link> -->
-      <p>
-        <nuxt-link :to="'/'"><span class="circleNav"></span>Store</nuxt-link>
-      </p>
-      <p>
-        <nuxt-link :to="'/vision'"><span class="circleNav"></span>Vision</nuxt-link>
-      </p>
-      <p>
-        <nuxt-link :to="'/about'"><span class="circleNav"></span>About</nuxt-link>
-      </p>
-      <div class="smalltextBottom is-size-7">
+      <!-- <p> -->
+        <nuxt-link :to="'/'">Store</nuxt-link>
+      <!-- </p> -->
+      <!-- <p> -->
+        <nuxt-link :to="'/vision'">Vision</nuxt-link>
+      <!-- </p> -->
+      <!-- <p> -->
+        <nuxt-link :to="'/about'">About</nuxt-link>
+      <!-- </p> -->
+      <div class="smalltextBottom is-size-6">
         <p class="pb-20">
           <a href="#" class="snipcart-edit-profile">
             Profile
@@ -70,7 +70,7 @@ export default {
   },
 }
 </script>
-<style>
+<style lang="scss">
 .navToggle {
   width: 100px;
   position: absolute;
@@ -89,6 +89,10 @@ export default {
   left: 0;
   padding: 10px;
   background: white;
+
+  p{
+    display: block;
+  }
 }
 
 .smalltextBottom {
@@ -109,18 +113,19 @@ export default {
   z-index: 1000;
   /* padding: 5px; */
   /* color: white; */
+  a {
+    text-decoration: none;
+    color: inherit;
+    line-height: inherit;
+    overflow: hidden;
+
+    display: inline-block;
+  }
+  .nuxt-link-exact-active {
+    border-bottom: 11px solid black;
+  }
 }
 
-#sidebar a {
-  text-decoration: none;
-  color: inherit;
-  line-height: inherit;
-  display: inline-block;
-}
-
-#sidebar .nuxt-link-exact-active {
-  border-bottom: 11px solid black;
-}
 
 /* #sidebar .circleNav::after{
  content: "○";
